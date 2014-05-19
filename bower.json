@@ -1,0 +1,9 @@
+{
+  "name": "timeline-insights",
+  "version": "0.1.0",
+  "homepage": "http://devbryce.com",
+  "devDependencies": {
+    "moment": "~2.6.0",
+    "lodash": "~2.4.1"
+  }
+}

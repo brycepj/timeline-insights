@@ -31,6 +31,8 @@ publish
 .idea
  
 dist
+data
 build
+
 bower_components
 node_modules
