@@ -15,6 +15,7 @@
 
 	<script
 		src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
 	<script type="text/javascript" charset="utf-8"
 		src="bower_components/lodash/dist/lodash.js"></script>
 	<script type="text/javascript" charset="utf-8"
@@ -27,9 +28,10 @@
 			var data = $.getJSON('data/bryce.json').done(function(data) {
 
 				var insights = new Insights(data,{});
-			
+
+                var time = new Date();
 				console.log('insights object',insights);
-				insights.dataByDay();
+				console.log(insights.dataByDay(), new Date() - time);
 
 			});
 
