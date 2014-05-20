@@ -91,7 +91,7 @@ Insights.prototype.textForTotals = function() {
 				tweet[k] = finalString.toLowerCase();
 
 			}
-
+			tweet = _.compact(tweet);
 		}
 		return results;
 	}
@@ -125,13 +125,14 @@ Insights.prototype.textForTotals = function() {
 				var word = tweet[k];
 
 				var punctuationless = word.replace(
-						/[\,"-@\/$%\^&\*;:{}=\-_`~()]/g, "");
+						/[\,-@\/$%\^&\*;:{}=\-_`~()]/g, "");
 				var finalString = punctuationless.replace(/\s{2,}/g, "");
 
 				tweet[k] = finalString.toLowerCase();
 
 			}
-
+			// remove falsey values, including ""
+			tweet = _.compact(tweet);
 		}
 
 		return results;
@@ -140,7 +141,8 @@ Insights.prototype.textForTotals = function() {
 
 	this.textTotals = {
 		wordLevel : scrubForWords(),
-		sentenceLevel : scrubForSentences()
+		sentenceLevel : scrubForSentences(),
+		fullText:text
 	};
 
 	return this.textTotals;
@@ -356,6 +358,56 @@ Insights.prototype.profanity = function() {
 		frequency : (wordCount / uses.length).toFixed(0),
 		percent : ((uses.length / wordCount) * 100).toFixed(8)
 	};
+};
+Insights.prototype.sentiments = function() {
+
+	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this.sentimentLib();
+
+	var negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
+
+
+	for (var i = 0; i < tweets.length; i++) {
+		var tweet = tweets[i];
+		
+		for (var j = 0; j < tweet.length; j++) {
+			var word = tweet[j];
+			
+			for (var key in lib) {
+				var sent = key;
+				var score = lib[key];
+				
+				if (word === sent) {
+					if (score > 0) {
+						positiveWords.push(sent);
+						
+					} else {
+						negativeWords.push(sent);
+					}
+					
+					balance += score;
+				}
+			}
+			
+			
+		}
+		
+		
+	}
+	
+	
+	
+	
+	return {
+		negativeWords : negativeWords,
+		positiveWords : positiveWords,
+		negPosWords : negativeWords.concat(positiveWords),
+		balance : balance,
+		negativeTweets : negativeTweets,
+		positiveTweets : positiveTweets,
+		neutralTweetCount : neutralTweetCount,
+		totalWords : totalWords
+	};
+
 };
 Insights.prototype.sentimentLib = function(){
 	

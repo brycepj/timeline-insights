@@ -56,7 +56,7 @@ Insights.prototype.textForTotals = function() {
 				tweet[k] = finalString.toLowerCase();
 
 			}
-
+			tweet = _.compact(tweet);
 		}
 		return results;
 	}
@@ -90,13 +90,14 @@ Insights.prototype.textForTotals = function() {
 				var word = tweet[k];
 
 				var punctuationless = word.replace(
-						/[\,"-@\/$%\^&\*;:{}=\-_`~()]/g, "");
+						/[\,-@\/$%\^&\*;:{}=\-_`~()]/g, "");
 				var finalString = punctuationless.replace(/\s{2,}/g, "");
 
 				tweet[k] = finalString.toLowerCase();
 
 			}
-
+			// remove falsey values, including ""
+			tweet = _.compact(tweet);
 		}
 
 		return results;
@@ -105,7 +106,8 @@ Insights.prototype.textForTotals = function() {
 
 	this.textTotals = {
 		wordLevel : scrubForWords(),
-		sentenceLevel : scrubForSentences()
+		sentenceLevel : scrubForSentences(),
+		fullText:text
 	};
 
 	return this.textTotals;
