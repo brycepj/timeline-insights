@@ -37,13 +37,14 @@ module.exports = function(grunt) {
 					},
 					dist:{
 						src:['dist/timeline-insights.js','dist/lib/libraries.js'],
-						dest:'dist/timeline-insights.js'
+						dest:'timeline-insights.js'
 					}
 				},
 				
 				jshint:{
 					options:{
-						loopfunc:true
+						loopfunc:true,
+						laxbreak:true
 					},
 					all: ['Gruntfile.js', 'src/**/*.js','lib/**/*.js']
 				}
