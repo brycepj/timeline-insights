@@ -1,4 +1,10 @@
-user_timeline-insights
-======================
+### conventions
 
-a library for extracting all sorts of interesting data from the Twitter API's user_timeline. 
+#### datasets 
+
+- prototypal method name = dataBy*****
+- store reference = this.by****
+- file name = dataBy****.js
+
+
+
