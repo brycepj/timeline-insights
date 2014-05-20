@@ -1,5 +1,9 @@
 Insights.prototype.textByDay = function() {
 
+	if (this.textDay) {
+		return this.textDay;
+	}
+	
 	var data = this.tweetsByDay(),
 	text;
 
@@ -10,6 +14,8 @@ Insights.prototype.textByDay = function() {
 			data[key] = _.pluck(day,'text');
 		}
 	})();
+	
+	this.textDay = data;
 	
 	return data;
 };

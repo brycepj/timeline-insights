@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 							
 					},
 					dist:{
-						src:['dist/timeline-insights.js','dist/lib/libraries.js'],
+						src:['dist/timeline-insights.js','dist/lib/libs.js'],
 						dest:'timeline-insights.js'
 					}
 				},

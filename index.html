@@ -24,21 +24,26 @@
 	<script type="text/javascript" charset="utf-8"
 		src="bower_components/lodash/dist/lodash.js"></script>
 	<script type="text/javascript" charset="utf-8"
-		src="dist/timeline-insights.js"></script>
+		src="timeline-insights.js"></script>
 	<script>
 		$(document).ready(function() {
 
 			
 			
-			var data = $.getJSON('data/bryce.json').done(function(data) {
+			var data = $.getJSON('data/brooks.json').done(function(data) {
 
+				console.log('insights object',insights);
+				
 				var insights = new Insights(data,{});
 
                 var time = new Date();
-				console.log('insights object',insights);
-				var data = insights.textByDay();
+				
+				var data = insights.profanity();
 				console.log(data);
-
+				
+				
+				console.log('insights, second time around', insights);
+				console.log('time: ', new Date() - time);
 			});
 
 			
