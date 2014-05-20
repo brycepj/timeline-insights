@@ -12,7 +12,21 @@ var Insights = (function (_) {
 })(_);
 
 
+Insights.prototype.textByDay = function() {
 
+	var data = this.tweetsByDay(),
+	text;
+
+	(function() {
+		for ( var key in data) {
+			var day = data[key];
+
+			data[key] = _.pluck(day,'text');
+		}
+	})();
+	
+	return data;
+};
 Insights.prototype.textForTotals = function() {
 
 	var data = this.d, text = [], arrayedText, wordLevel, sentenceLevel;
@@ -171,13 +185,13 @@ Insights.prototype.tweetCalendar = function() {
 };
 // return tweet data, sorted by day
 
-Insights.prototype.dataByDay = function () {
+Insights.prototype.tweetsByDay = function () {
 
     if (this.byDay) {
         return this.byDay;
     }
     
-    var data = _.cloneDeep(this.dataWithDates());
+    var data = _.cloneDeep(this.tweetsWithDates());
    
     // group by dateStr
 

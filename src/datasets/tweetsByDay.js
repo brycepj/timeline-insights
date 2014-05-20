@@ -1,12 +1,12 @@
 // return tweet data, sorted by day
 
-Insights.prototype.dataByDay = function () {
+Insights.prototype.tweetsByDay = function () {
 
     if (this.byDay) {
         return this.byDay;
     }
     
-    var data = _.cloneDeep(this.dataWithDates());
+    var data = _.cloneDeep(this.tweetsWithDates());
    
     // group by dateStr
 
