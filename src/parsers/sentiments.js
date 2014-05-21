@@ -1,10 +1,14 @@
 Insights.prototype.sentiments = function() {
-
+	
 	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this
-			.sentimentLib();
+			.sentimentLib(),results;
 
 	var negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
 
+	if (this.sentimentTotals) {
+		return this.sentimentTotals;
+	}
+	
 	for (var i = 0; i < tweets.length; i++) {
 		var tweet = tweets[i], currentBalance = 0, currentPositive = [], currentNegative = [];
 
@@ -67,15 +71,19 @@ Insights.prototype.sentiments = function() {
 		return tweet.balance;
 	}).reverse();
 
-	return {
-		negativeWords : negativeWords,
-		positiveWords : positiveWords,
-		negPosWords : negativeWords.concat(positiveWords),
-		balance : balance,
-		negativeTweets : negativeTweets,
-		positiveTweets : positiveTweets,
-		neutralTweetCount : neutralTweetCount,
-		totalWords : totalWords
-	};
+	results = {
+			negativeWords : negativeWords,
+			positiveWords : positiveWords,
+			negPosWords : negativeWords.concat(positiveWords),
+			balance : balance,
+			negativeTweets : negativeTweets,
+			positiveTweets : positiveTweets,
+			neutralTweetCount : neutralTweetCount,
+			totalWords : totalWords
+		};
+	
+	this.sentimentTotals  = results;
+	
+	return results;
 
 };

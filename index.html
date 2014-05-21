@@ -38,11 +38,12 @@
 
                 var time = new Date();
 				
-				var data = insights.sentiments();
-				console.log(data);
+				var use = insights.vocabulary();
+				console.log(use);
+				
+				console.log('items:',data.length,'time:', (new Date() - time)/1000);
 				
 				
-				console.log('time: ', new Date() - time);
 			});
 
 			
