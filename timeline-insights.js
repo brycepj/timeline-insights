@@ -358,7 +358,7 @@ Insights.prototype.narcissism = function() {
 	this.narc = {
 		narcTweetCount : narcTweetCount,
 		counts : counts,
-		narcTweetsPercent : ((narcTweetCount / data.length) * 100).toFixed(2),
+		narcTweetsPercent : Number(((narcTweetCount / data.length) * 100).toFixed(2)),
 		narcTweets : narcTweets
 	};
 
@@ -419,6 +419,39 @@ Insights.prototype.profanity = function() {
 	results = this.profanityTotals;
 
 	return results;
+};
+Insights.prototype.reading = function(){
+	
+	var results;
+	
+	if (this.readingTotals) {
+		return this.readingTotals;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	this.readingTotals = {
+			fog:203,
+			grade:203,
+			ease:234		
+	};
+	
+	results = this.readingTotals;
+	
+	return results;
+	
 };
 Insights.prototype.sentiments = function() {
 	

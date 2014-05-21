@@ -41,7 +41,7 @@ Insights.prototype.narcissism = function() {
 	this.narc = {
 		narcTweetCount : narcTweetCount,
 		counts : counts,
-		narcTweetsPercent : ((narcTweetCount / data.length) * 100).toFixed(2),
+		narcTweetsPercent : Number(((narcTweetCount / data.length) * 100).toFixed(2)),
 		narcTweets : narcTweets
 	};
 
