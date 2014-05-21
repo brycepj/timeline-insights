@@ -13,6 +13,7 @@ Insights.prototype.vocabulary = function(){
 	uniqueWords = uniqueWords.value();
 	
 	(function(){
+		
 		var TOTAL = 35000;
 		
 		var multiple = (TOTAL/allWords.length);
