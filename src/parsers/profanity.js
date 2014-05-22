@@ -1,5 +1,10 @@
 Insights.prototype.profanity = function() {
 
+	var results;
+
+	if (this.profanityTotals) {
+		return this.profanityTotals;
+	}
 	// array of all words used
 	var data = _.flatten(this.textForTotals().wordLevel), lib = this
 			.profanityLib(), uses = [], wordCount = 0, count;
@@ -13,10 +18,10 @@ Insights.prototype.profanity = function() {
 
 				if (word === prof) {
 					uses.push(word);
-					
+
 				}
-				
-				wordCount++;	
+
+				wordCount++;
 			}
 		}
 
@@ -36,9 +41,13 @@ Insights.prototype.profanity = function() {
 
 	}
 
-	return {
+	this.profanityTotals = {
 		count : getCounts(),
 		frequency : (wordCount / uses.length).toFixed(0),
 		percent : ((uses.length / wordCount) * 100).toFixed(8)
 	};
+
+	results = this.profanityTotals;
+
+	return results;
 };

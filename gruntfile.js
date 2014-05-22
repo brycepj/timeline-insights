@@ -16,39 +16,49 @@ module.exports = function(grunt) {
 
 				watch : {
 					scripts : {
-						files : [ 'index.html','src/**/*.js','lib/**/*.js', 'gruntfile.js' ],
-						tasks : [ 'jshint','concat'],
+						files : [ 'index.html', 'src/**/*.js', 'lib/**/*.js',
+								'gruntfile.js' ],
+						tasks : [ 'jshint', 'concat' ],
 						options : {
 							livereload : true,
 							spawn : false,
 						},
 					}
 				},
-				
-				concat: {
-					js: {
-						src: ['src/**/*.js'],
-						dest:'dist/timeline-insights.js'
+
+				concat : {
+					js : {
+						src : [ 'src/**/*.js' ],
+						dest : 'dist/timeline-insights.js'
 					},
-					json: {
-						src:['lib/**/*.js'],
-						dest:'dist/lib/libs.js'
-							
+					json : {
+						src : [ 'lib/**/*.js' ],
+						dest : 'dist/lib/libs.js'
+
 					},
-					dist:{
-						src:['dist/timeline-insights.js','dist/lib/libs.js'],
-						dest:'timeline-insights.js'
+					dist : {
+						src : [ 'dist/timeline-insights.js', 'dist/lib/libs.js' ],
+						dest : 'timeline-insights.js'
 					}
 				},
-				
-				jshint:{
-					options:{
-						loopfunc:true,
-						laxbreak:true
+
+				jshint : {
+					options : {
+						loopfunc : true,
+						laxbreak : true
 					},
-					all: ['Gruntfile.js', 'src/**/*.js','lib/**/*.js']
+					all : [ 'Gruntfile.js', 'src/**/*.js', 'lib/**/*.js' ]
+				},
+				uglify : {
+					dev : {
+						files : {
+							'timeline-insights.min.js' : ['timeline-insights.js']
+						}
+
+					}
 				}
-						
+
+			
 			});
 
 	// 3. Where we tell Grunt we plan to use this plug-in.
@@ -59,7 +69,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-shell');
 
 	// 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
-	grunt.registerTask('dev', [ 'jshint', 'concat','watch' ]);
-	
+	grunt.registerTask('dev', [ 'jshint', 'concat', 'uglify', 'watch' ]);
 
 };

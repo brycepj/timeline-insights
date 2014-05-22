@@ -315,8 +315,65 @@ Insights.prototype.tweetsWithDates = function() {
 	return data;
 
 };
+Insights.prototype.narcissism = function() {
+
+	var data = this.textForTotals().wordLevel, fullText = this.textForTotals().fullText, narcList = [
+			'i', 'me', 'my', 'mine', 'myself', "i've", "i'm", "i'd", 'ive',
+			'im', 'id' ], results, narcUses = [], narcTweets = [], narcTweetCount = 0, narcPercent, counts;
+
+	if (this.narc) {
+		return this.narc;
+	}
+
+	for (var i = 0; i < data.length; i++) {
+
+		var tweet = data[i];
+		var hasNarc = false;
+
+		for (var k = 0; k < tweet.length; k++) {
+			var word = tweet[k];
+
+			for (var j = 0; j < narcList.length; j++) {
+				var narcWord = narcList[j];
+
+				if (word === narcWord) {
+					narcUses.push(word);
+					hasNarc = true;
+				}
+			}
+
+		}
+
+		if (hasNarc) {
+			narcTweetCount++;
+			narcTweets.push(fullText[i]);
+
+		}
+	}
+
+	counts = _.countBy(narcUses, function(word) {
+		return word;
+	});
+
+	this.narc = {
+		narcTweetCount : narcTweetCount,
+		counts : counts,
+		narcTweetsPercent : Number(((narcTweetCount / data.length) * 100).toFixed(2)),
+		narcTweets : narcTweets
+	};
+
+	results = this.narc;
+
+	return results;
+
+};
 Insights.prototype.profanity = function() {
 
+	var results;
+
+	if (this.profanityTotals) {
+		return this.profanityTotals;
+	}
 	// array of all words used
 	var data = _.flatten(this.textForTotals().wordLevel), lib = this
 			.profanityLib(), uses = [], wordCount = 0, count;
@@ -330,10 +387,10 @@ Insights.prototype.profanity = function() {
 
 				if (word === prof) {
 					uses.push(word);
-					
+
 				}
-				
-				wordCount++;	
+
+				wordCount++;
 			}
 		}
 
@@ -353,61 +410,174 @@ Insights.prototype.profanity = function() {
 
 	}
 
-	return {
+	this.profanityTotals = {
 		count : getCounts(),
 		frequency : (wordCount / uses.length).toFixed(0),
 		percent : ((uses.length / wordCount) * 100).toFixed(8)
 	};
+
+	results = this.profanityTotals;
+
+	return results;
 };
-Insights.prototype.sentiments = function() {
-
-	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this.sentimentLib();
-
-	var negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
-
-
-	for (var i = 0; i < tweets.length; i++) {
-		var tweet = tweets[i];
-		
-		for (var j = 0; j < tweet.length; j++) {
-			var word = tweet[j];
-			
-			for (var key in lib) {
-				var sent = key;
-				var score = lib[key];
-				
-				if (word === sent) {
-					if (score > 0) {
-						positiveWords.push(sent);
-						
-					} else {
-						negativeWords.push(sent);
-					}
-					
-					balance += score;
-				}
-			}
-			
-			
-		}
-		
-		
+Insights.prototype.reading = function(){
+	
+	var results;
+	
+	if (this.readingTotals) {
+		return this.readingTotals;
 	}
 	
 	
 	
 	
-	return {
-		negativeWords : negativeWords,
-		positiveWords : positiveWords,
-		negPosWords : negativeWords.concat(positiveWords),
-		balance : balance,
-		negativeTweets : negativeTweets,
-		positiveTweets : positiveTweets,
-		neutralTweetCount : neutralTweetCount,
-		totalWords : totalWords
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	this.readingTotals = {
+			fog:203,
+			grade:203,
+			ease:234		
 	};
+	
+	results = this.readingTotals;
+	
+	return results;
+	
+};
+Insights.prototype.sentiments = function() {
+	
+	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this
+			.sentimentLib(),results;
 
+	var negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
+
+	if (this.sentimentTotals) {
+		return this.sentimentTotals;
+	}
+	
+	for (var i = 0; i < tweets.length; i++) {
+		var tweet = tweets[i], currentBalance = 0, currentPositive = [], currentNegative = [];
+
+		for (var j = 0; j < tweet.length; j++) {
+			var word = tweet[j];
+			totalWords++;
+
+			for ( var key in lib) {
+				var sent = key;
+				var score = lib[key];
+
+				if (word === sent) {
+					if (score > 0) {
+						positiveWords.push(sent);
+						currentPositive.push(sent);
+
+						balance += score;
+						currentBalance += score;
+
+					} else {
+						negativeWords.push(sent);
+						currentNegative.push(sent);
+
+						balance += score;
+						currentBalance += score;
+					}
+
+				}
+			}
+
+		}
+
+		if (currentBalance > 0) {
+			positiveTweets.push({
+				text : fullText[i],
+				negativeWords : currentNegative,
+				positiveWords : currentPositive,
+				balance : currentBalance
+			});
+		} else if (currentBalance < 0) {
+			negativeTweets.push({
+				text : fullText[i],
+				negativeWords : currentNegative,
+				positiveWords : currentPositive,
+				balance : currentBalance
+			});
+		} else {
+
+			neutralTweetCount++;
+
+		}
+
+	}
+
+	negativeTweets = _.sortBy(negativeTweets, function(tweet) {
+		return tweet.balance;
+	});
+
+	positiveTweets = _.sortBy(positiveTweets, function(tweet) {
+		return tweet.balance;
+	}).reverse();
+
+	results = {
+			negativeWords : negativeWords,
+			positiveWords : positiveWords,
+			negPosWords : negativeWords.concat(positiveWords),
+			balance : balance,
+			negativeTweets : negativeTweets,
+			positiveTweets : positiveTweets,
+			neutralTweetCount : neutralTweetCount,
+			totalWords : totalWords
+		};
+	
+	this.sentimentTotals  = results;
+	
+	return results;
+
+};
+Insights.prototype.vocabulary = function(){
+	
+	var data = this.textForTotals().sentenceLevel, equiv,
+	allWords = _.flatten(data);
+	uniqueWords = _.chain(allWords).compact()
+	.map(function(word){
+		var punctuationless = word.replace(
+				/[\,.!-@\/$%\^&\*;:{}=\-_`~()]/g, "");
+		return punctuationless.replace(/\s{2,}/g, "");
+	})
+	.uniq();
+	
+	uniqueWords = uniqueWords.value();
+	
+	(function(){
+		
+		var TOTAL = 35000;
+		
+		var multiple = (TOTAL/allWords.length);
+		
+		equiv = uniqueWords.length * multiple;
+		
+	})();
+	
+	return {
+		uniqueWords:uniqueWords,
+		totalWords:allWords.length,
+		uniquePer35k: {
+			self:Number(equiv.toFixed(0)),
+			melville: 6022,
+			shakespeare:5170,
+			DMX:3214,
+			aesopRock:7392,
+			reference:"http://rappers.mdaniels.com"	
+		}
+	};
 };
 Insights.prototype.sentimentLib = function(){
 	
