@@ -11,6 +11,7 @@ Insights.prototype.reading = function() {
 	}
 
 	// store reading data for each tweet
+	
 	(function() {
 
 		for (var i = 0; i < data.length; i++) {
