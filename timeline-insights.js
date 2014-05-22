@@ -324,12 +324,10 @@ Insights.prototype.hashtags = function() {
 	var tweets = [];
 	var totals,results;
 	
-(function(){
-	if (this.hashtagTotals) {
-		
-		return this.hashtagTotals;
+	if (this.hashtagStats) {
+		return this.hashtagStats;
 	}
-})();
+
 	(function() {
 		for (var i = 0; i < data.length; i++) {
 			var tweet = data[i], hashtags = tweet.entities.hashtags, currentHashtags = [];
@@ -404,14 +402,14 @@ Insights.prototype.hashtags = function() {
 		};
 	}
 	
-	this.hashtagTotals = {
+	this.hashtagStats = {
 			totals:totals,
 			usage:countUsage(),
 			favorites:countFavorites(),
 			sins:countSins()
 	};
 	
-	results = this.hashtagTotals;
+	results = this.hashtagStats;
 	
 	return results;
 };

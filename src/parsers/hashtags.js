@@ -5,12 +5,8 @@ Insights.prototype.hashtags = function() {
 	var tweets = [];
 	var totals,results;
 	
-
-	// why isn't this caching?
-	// And why so slow?
-	
-	if (this.hashtagTotals) {
-		this.hashtagTotals;
+	if (this.hashtagStats) {
+		return this.hashtagStats;
 	}
 
 	(function() {
@@ -87,14 +83,14 @@ Insights.prototype.hashtags = function() {
 		};
 	}
 	
-	this.hashtagTotals = {
+	this.hashtagStats = {
 			totals:totals,
 			usage:countUsage(),
 			favorites:countFavorites(),
 			sins:countSins()
 	};
 	
-	results = this.hashtagTotals;
+	results = this.hashtagStats;
 	
 	return results;
 };
