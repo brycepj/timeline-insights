@@ -1,6 +1,6 @@
 Insights.prototype.hashtags = function() {
 
-	var data = this.tweetsWithDates();
+	var data = this.d;
 	var allHashtags = [];
 	var tweets = [];
 	var totals,results;

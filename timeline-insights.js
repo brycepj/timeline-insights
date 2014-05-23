@@ -319,7 +319,7 @@ Insights.prototype.tweetsWithDates = function() {
 
 Insights.prototype.hashtags = function() {
 
-	var data = this.tweetsWithDates();
+	var data = this.d;
 	var allHashtags = [];
 	var tweets = [];
 	var totals,results;
@@ -467,7 +467,14 @@ Insights.prototype.narcissism = function() {
 	return results;
 
 };
-
+Insights.prototype.people = function(){
+	
+	var data = this.d;
+	
+	console.log(data, 'jello to the jucken wold');
+	
+	
+};
 Insights.prototype.profanity = function() {
 
 	var results;
