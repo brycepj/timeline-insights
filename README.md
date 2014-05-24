@@ -1,10 +1,9 @@
 ### conventions
 
-#### datasets 
-
-- prototypal method name = dataBy*****
-- store reference = this.by****
-- file name = dataBy****.js
-
+- hashtags
+- reasons
+- figure out how to document the thing
+- figure out code conventions
+- write up Readme, for users. 
 
 
