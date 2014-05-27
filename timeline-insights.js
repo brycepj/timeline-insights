@@ -70,7 +70,7 @@ Insights.prototype.textForTotals = function() {
 						.slice(0, 4);
 
 				return firstLetter !== "@" && firstFour !== "http"
-						&& firstTwo !== "rt";
+						;
 			});
 
 			results.push(noSymbols);
@@ -339,90 +339,135 @@ Insights.prototype.tweetsWithDates = function (simple) {
 
 };
 
-Insights.prototype.fauxpas = function () {
+Insights.prototype.fauxpas = function() {
 
-    var data = this.tweetsWithDates();
-    console.log(data);
-    function rapidFire() {
+	var data = this.tweetsWithDates();
+	var text = this.textForTotals();
 
-        var scrubbed = [];
-        var prevMin, prevHour, prevSec;
-        var tweetsThisMinute = 1;
+	function rant() {
 
-        for (var i = 0; i < data.length; i++) {
+		var scrubbed = [], counted, sorted;
+		var prevD = null, prevH = null, prevM = null, prevS = null, prevCount = 0;
 
-            var tweet = data[i];
+		for (var i = 0; i < data.length; i++) {
 
-            if (!tweet.in_reply_to_screen_name) {
+			var tweet = data[i];
 
-                var currentHour = tweet.moment._a[3];
-                var currentMin = tweet.moment._a[4];
-                var currentSec = tweet.moment._a[5];
+			if (!tweet.in_reply_to_screen_name) {
+				var currentDay = tweet.dateStr;
+				var currentHour = tweet.moment._a[3];
+				var currentMin = tweet.moment._a[4];
+				var currentSec = tweet.moment._a[5];
 
+				if (i === 0) {
+					prevD = currentDay;
+					prevH = currentHour;
+					prevM = currentMin;
+					prevS = currentSec;
 
-                if (i === 0) {
+				} else {
 
-                    prevSec = currentSec;
-                    prevMin = currentMin;
-                    prevHour = currentHour;
+					if (currentDay === prevD
+							&& currentHour === prevH
+							&& (currentMin === prevM || currentMin === prevM + 1)) {
+						prevCount += 1;
 
-                } else {
+						scrubbed.push({
+							day : prevD,
+							hour : prevH,
+							min : prevM,
+							sec : prevS,
+							count : prevCount
+						});
 
-                    if (currentHour === prevHour) {
+					} else {
 
+						prevD = currentDay;
+						prevH = currentHour;
+						prevM = currentMin;
+						prevS = currentSec;
 
-                        if (currentMin === prevMin || currentMin === (prevMin - 1) || currentMin === (prevMin + 1)) {
-                            tweetsThisMinute++;
+						prevCount = 0;
+					}
+				}
+			}
 
-                        }
-                    } else {
+		}
 
-                        currentTweet = {
-                            date:1,
-                            hour:1,
-                            min:2,
-                            sec:2
-                        };
-                    }
-                }
-            }
-            if (tweetsThisMinute > 1){
-                console.log(tweetsThisMinute,"tweets this minute");
-                tweetsThisMinute = 1;
-            } else {
-                tweetsThisMinute = 1;
-            }
-        }
+		counted = _.filter(scrubbed, function(dup) {
+			return dup.count > 1;
+		});
 
+		uniq = _.forEach(counted, function(tweet) {
+			var str = tweet.day + tweet.hour + tweet.min;
+			tweet.str = str;
+		});
 
-        return {
-            count: scrubbed,
-            tweets: [
-                {
-                    day: 111111,
-                    text: 1111
-                }
-            ]
-        };
-    }
+		sorted = _.countBy(uniq, function(tweet) {
+			return tweet.str;
+		});
 
+		return {
+			count : sorted.length,
+			times : sorted
+		};
+	}
 
-    return {
-        rapidFire: function () {
-            return rapidFire();
-        },
-        pls: function () {
-            console.log('run pls');
-        }
-    };
+	function plsRT() {
+
+		var words = text.wordLevel;
+		var fullText = text.fullText;
+		var please = false;
+		var pleaseRTs = 0;
+		var offenses = [];
+		
+		for (var i = 0; i < words.length; i++) {
+			var tweet = words[i];
+
+			for (var j = 0; j < tweet.length; j++) {
+				var word = tweet[j];
+				word = word.toLowerCase();
+
+				if (please) {
+					if (word === "rt" || word === "retweet") {
+						pleaseRTs++;
+						offenses.push(fullText[i]);
+					}
+
+					please = false;
+				}
+
+				if (word === "please" || word === "plz" || word === "pls") {
+					please = true;
+					
+				}
+
+			}
+
+		}
+
+		return {
+			count : offenses.length,
+			text : offenses
+		};
+	}
+
+	return {
+		rant : function() {
+			return rant();
+		},
+		plsRT : function() {
+			return plsRT();
+		}
+	};
 };
 Insights.prototype.hashtags = function() {
 
 	var data = this.d;
 	var allHashtags = [];
 	var tweets = [];
-	var totals,results;
-	
+	var totals, results;
+
 	if (this.hashtagStats) {
 		return this.hashtagStats;
 	}
@@ -432,15 +477,14 @@ Insights.prototype.hashtags = function() {
 			var tweet = data[i], hashtags = tweet.entities.hashtags, currentHashtags = [];
 			if (hashtags.length > 0) {
 
-				
 				for (var j = 0; j < hashtags.length; j++) {
 					var hashtag = hashtags[j].text;
 
 					allHashtags.push(hashtag);
 					currentHashtags.push(hashtag);
-					
+
 				}
-				
+
 			}
 
 			if (hashtags.length > 0) {
@@ -449,70 +493,69 @@ Insights.prototype.hashtags = function() {
 					count : hashtags.length,
 					hashtags : currentHashtags,
 					text : data[i].text,
-					index:i
+					index : i
 				});
 			}
-			
+
 		}
-		
+
 		totals = {
-				allHashtags:allHashtags,
-				tweets:tweets
+			allHashtags : allHashtags,
+			tweets : tweets
 		};
 	})();
-	
+
 	function countUsage() {
-		
-		var counts = _.pluck(totals.tweets,"count");
-		counts = _.countBy(counts,function(count){
+
+		var counts = _.pluck(totals.tweets, "count");
+		counts = _.countBy(counts, function(count) {
 			return count;
 		});
-		
+
 		counts["0"] = data.length - tweets.length;
-		
+
 		return counts;
-		
+
 	}
-	
-	function countFavorites(){
-		var counts = _.countBy(totals.allHashtags,function(hashtag){
+
+	function countFavorites() {
+		var counts = _.countBy(totals.allHashtags, function(hashtag) {
 			return hashtag;
 		});
-		
-		counts = _.omit(counts,function(val){
+
+		counts = _.omit(counts, function(val) {
 			return val < 2;
 		});
-		
+
 		return counts;
 	}
-	
-	function countSins(){
-		var sins = _.filter(totals.tweets,function(tweet){
+
+	function countSins() {
+		var sins = _.filter(totals.tweets, function(tweet) {
 			return tweet.count > 2;
 		});
-		
-		sins = _.sortBy(sins,function(tweet){
+
+		sins = _.sortBy(sins, function(tweet) {
 			return tweet.count;
 		});
-		
+
 		return {
-			tweets:sins.reverse(),
-			counts:sins.length
+			tweets : sins.reverse(),
+			counts : sins.length
 		};
 	}
-	
+
 	this.hashtagStats = {
-			totals:totals,
-			usage:countUsage(),
-			favorites:countFavorites(),
-			sins:countSins()
+		totals : totals,
+		usage : countUsage(),
+		favorites : countFavorites(),
+		sins : countSins()
 	};
-	
+
 	results = this.hashtagStats;
-	
+
 	return results;
 };
-
 
 Insights.prototype.narcissism = function() {
 

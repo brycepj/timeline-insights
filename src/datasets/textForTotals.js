@@ -35,7 +35,7 @@ Insights.prototype.textForTotals = function() {
 						.slice(0, 4);
 
 				return firstLetter !== "@" && firstFour !== "http"
-						&& firstTwo !== "rt";
+						;
 			});
 
 			results.push(noSymbols);
