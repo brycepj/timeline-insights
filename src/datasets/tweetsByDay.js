@@ -6,7 +6,7 @@ Insights.prototype.tweetsByDay = function () {
         return this.byDay;
     }
     
-    var data = _.cloneDeep(this.tweetsWithDates());
+    var data = _.cloneDeep(this.tweetsWithDates("simple"));
    
     // group by dateStr
 
