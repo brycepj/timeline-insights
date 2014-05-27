@@ -339,7 +339,83 @@ Insights.prototype.tweetsWithDates = function (simple) {
 
 };
 
+Insights.prototype.fauxpas = function () {
 
+    var data = this.tweetsWithDates();
+    console.log(data);
+    function rapidFire() {
+
+        var scrubbed = [];
+        var prevMin, prevHour, prevSec;
+        var tweetsThisMinute = 1;
+
+        for (var i = 0; i < data.length; i++) {
+
+            var tweet = data[i];
+
+            if (!tweet.in_reply_to_screen_name) {
+
+                var currentHour = tweet.moment._a[3];
+                var currentMin = tweet.moment._a[4];
+                var currentSec = tweet.moment._a[5];
+
+
+                if (i === 0) {
+
+                    prevSec = currentSec;
+                    prevMin = currentMin;
+                    prevHour = currentHour;
+
+                } else {
+
+                    if (currentHour === prevHour) {
+
+
+                        if (currentMin === prevMin || currentMin === (prevMin - 1) || currentMin === (prevMin + 1)) {
+                            tweetsThisMinute++;
+
+                        }
+                    } else {
+
+                        currentTweet = {
+                            date:1,
+                            hour:1,
+                            min:2,
+                            sec:2
+                        };
+                    }
+                }
+            }
+            if (tweetsThisMinute > 1){
+                console.log(tweetsThisMinute,"tweets this minute");
+                tweetsThisMinute = 1;
+            } else {
+                tweetsThisMinute = 1;
+            }
+        }
+
+
+        return {
+            count: scrubbed,
+            tweets: [
+                {
+                    day: 111111,
+                    text: 1111
+                }
+            ]
+        };
+    }
+
+
+    return {
+        rapidFire: function () {
+            return rapidFire();
+        },
+        pls: function () {
+            console.log('run pls');
+        }
+    };
+};
 Insights.prototype.hashtags = function() {
 
 	var data = this.d;
