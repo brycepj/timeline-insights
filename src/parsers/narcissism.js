@@ -1,17 +1,25 @@
 Insights.prototype.narcissism = function() {
 
-	var data = this.textForTotals().wordLevel, fullText = this.textForTotals().fullText, narcList = [
+	var data = this.textForTotals().wordLevel,
+        fullText = this.textForTotals().fullText,
+        narcList = [
 			'i', 'me', 'my', 'mine', 'myself', "i've", "i'm", "i'd", 'ive',
-			'im', 'id' ], results, narcUses = [], narcTweets = [], narcTweetCount = 0, narcPercent, counts;
+			'im', 'id' ],
+        results,
+        narcUses = [],
+        narcTweets = [],
+        narcTweetCount = 0,
+        narcPercent,
+        counts;
 
 	if (this.narc) {
 		return this.narc;
 	}
 
-	for (var i = 0; i < data.length; i++) {
+	for (var i = 0, max = data.length; i < max; i++) {
 
-		var tweet = data[i];
-		var hasNarc = false;
+		var tweet = data[i],
+            hasNarc = false;
 
 		for (var k = 0; k < tweet.length; k++) {
 			var word = tweet[k];

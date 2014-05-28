@@ -9,9 +9,8 @@ Insights.prototype.tweetCalendar = function() {
 	var data = _.cloneDeep(this.tweetsByYear());
 
 	for ( var prop in data) {
-		var year = data[prop];
-
-		var sorted = _.groupBy(year, function(val) {
+		var year = data[prop],
+            sorted = _.groupBy(year, function(val) {
 			return val.moment._a[1];
 		});
 
@@ -24,9 +23,8 @@ Insights.prototype.tweetCalendar = function() {
 			var year = data[prop];
 
 			for ( var prop2 in year) {
-				var month = year[prop2];
-
-				var sorted = _.groupBy(month, function(val) {
+				var month = year[prop2],
+                    sorted = _.groupBy(month, function(val) {
 					return val.moment._a[2];
 				});
 

@@ -1,10 +1,10 @@
 Insights.prototype.reading = function() {
 
-	var results = [];
-	var data = this.textForTotals().sentenceLevel;
-	var fullText = this.textForTotals().fullText;
-	var readingPerTweet = [];
-	var totals;
+	var results = [],
+        data = this.textForTotals().sentenceLevel,
+        fullText = this.textForTotals().fullText,
+        readingPerTweet = [],
+        totals;
 	
 	if (this.readingTotals) {
 		return this.readingTotals;
@@ -14,7 +14,7 @@ Insights.prototype.reading = function() {
 	
 	(function() {
 
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0,max = data.length; i < max; i++) {
 
 			// remove words that are ""
 
@@ -25,9 +25,8 @@ Insights.prototype.reading = function() {
 			var sentences = fullText[i].split(/[.|!|?]\s/gi);
 
 			for (var j = 0; j < tweet.length; j++) {
-				var word = tweet[j];
-
-				var syllables = (function() {
+				var word = tweet[j],
+                    syllables = (function() {
 
 					word = word.toLowerCase(); // word.downcase!
 					if (word.length <= 3) {
@@ -93,10 +92,9 @@ Insights.prototype.reading = function() {
 	}
 
 	function getFlesch() {
-		var data = totals;
-		
-		var WPS = data.wordsPerSentence;
-		var SPW = data.syllablesPerWord;
+		var data = totals,
+            WPS = data.wordsPerSentence,
+            SPW = data.syllablesPerWord;
 		
 		
 		return {
@@ -106,9 +104,9 @@ Insights.prototype.reading = function() {
 	}
 
 	function getFog() {
-		var data = totals;
-		var ASL = Number(data.wordsPerSentence);
-		var PHW = Number(data.percentLongWords);
+		var data = totals,
+            ASL = Number(data.wordsPerSentence),
+            PHW = Number(data.percentLongWords);
 		
 		return (0.4*(ASL + PHW)).toFixed(2);
 	}

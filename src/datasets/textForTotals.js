@@ -47,11 +47,10 @@ Insights.prototype.textForTotals = function() {
 			var tweet = results[j];
 
 			for (var k = 0; k < tweet.length; k++) {
-				var word = tweet[k];
-
-				var punctuationless = word.replace(
-						/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g, "");
-				var finalString = punctuationless.replace(/\s{2,}/g, " ");
+				var word = tweet[k],
+                    punctuationless = word.replace(
+						/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g, ""),
+                    finalString = punctuationless.replace(/\s{2,}/g, " ");
 
 				tweet[k] = finalString.toLowerCase();
 
@@ -87,11 +86,10 @@ Insights.prototype.textForTotals = function() {
 			var tweet = results[j];
 
 			for (var k = 0; k < tweet.length; k++) {
-				var word = tweet[k];
-
-				var punctuationless = word.replace(
-						/[\,-@\/$%\^&\*;:{}=\-_`~()]/g, "");
-				var finalString = punctuationless.replace(/\s{2,}/g, "");
+				var word = tweet[k],
+                    punctuationless = word.replace(
+						/[\,-@\/$%\^&\*;:{}=\-_`~()]/g, ""),
+                    finalString = punctuationless.replace(/\s{2,}/g, "");
 
 				tweet[k] = finalString.toLowerCase();
 

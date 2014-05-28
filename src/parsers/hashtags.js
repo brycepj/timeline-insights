@@ -1,16 +1,17 @@
 Insights.prototype.hashtags = function() {
 
-	var data = this.d;
-	var allHashtags = [];
-	var tweets = [];
-	var totals, results;
+	var data = this.d,
+        allHashtags = [],
+        tweets = [],
+        totals,
+        results;
 
 	if (this.hashtagStats) {
 		return this.hashtagStats;
 	}
 
 	(function() {
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0, max = data.length; i < max; i++) {
 			var tweet = data[i], hashtags = tweet.entities.hashtags, currentHashtags = [];
 			if (hashtags.length > 0) {
 
