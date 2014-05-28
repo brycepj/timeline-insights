@@ -12,6 +12,7 @@ Once you have it setup, you're ready to grab the user's timeline data. For more 
 
 Here's a sample of the data returned by a user_timeline query, for one tweet:
 
+```
 {
     "coordinates": null,
     "favorited": false,
@@ -111,31 +112,37 @@ Here's a sample of the data returned by a user_timeline query, for one tweet:
     "source": "<a href=\"http://sites.google.com/site/yorufukurou/\" rel=\"nofollow\">YoruFukurou</a>",
     "in_reply_to_status_id": null
   }
+```
 
 Even if you're processing the data client-side, it still makes sense to remove properties you don't need server-side. I generally cut out properties related to the user's profile (starting from 'default profile', and moving down to 'screen_name'). These properties are generally consistent across tweets and provide little insight. 
-
-Motivation
-
-I've always been interested in how what we say says about who we are. And since we say so much on Twitter, 
 
 ## Getting Started
 
 Pass the data returned from the Twitter API into the Insights constructor, and use prototype methods to extract insights and datasets. 
 
-	var data = $.getJSON('twitter.api.request').done(function(data) {
+```
+var data = $.getJSON('twitter.api.request').done(function(data) {
 
-		var insights = new Insights(data),
+	var insights = new Insights(data),
 
-		    profanity = insights.profanity(), // returns insights about profanity usage in tweets
+	    // returns insights about profanity usage in tweets
 
-		    sentiments = insights.sentiments(), // returns insights about positive and negative sentiments expressed in user's tweets
+	    profanity = insights.profanity(), 
 
-		    tweetsByDay = insights.tweetCalendar(), // returns a dataset of tweets organized by year, month, and day 
+	    // returns insights about positive and negative sentiments expressed in user's tweets
+	    
+	    sentiments = insights.sentiments(), 
 
-	});
+	    // returns a dataset of tweets organized by year, month, and day
+	    
+	    tweetsByDay = insights.tweetCalendar(); 
 
+});
 
+```
 ## API Reference
+
+(still need to go through and decide on naming conventions)
 
 ### Datasets
 
