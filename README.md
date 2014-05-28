@@ -146,8 +146,133 @@ var data = $.getJSON('twitter.api.request').done(function(data) {
 
 ### Datasets
 
+**tweetCalendar()**
+
+Returns tweets organized into years, months, and days. 
+
+Example:
+
+```
+{
+   "2012":{
+      "06":{
+         "26":[
+            {
+               // individual tweet data #1
+            }
+
+         ],
+         "27":[
+            {
+               // individual tweet data #2
+            },
+            {
+              // individual tweet data #3
+            }
+         ],
+	"28":[
+            {
+               // individual tweet data #4
+            },
+            {
+              // individual tweet data #5
+            }
+         ]
+}
+```
+
+**tweetsByDay()**
+
+Returns tweets organized by the day they were tweeted. 
+
+Example:
+
+```
+{
+   "20120726":[
+      {
+          // individual tweet #1
+      }
+   ],
+   "20120727":[
+      {
+         // individual tweet data #2
+      },
+      {
+         // individual tweet data #3
+      },
+      {
+         // individual tweet data #4
+      }
+   ],
+   "20120728":[
+      {
+         // individual tweet data #5
+      },
+      {
+         // individual tweet data #6
+      }
+   ]
+
+}
+
+```
+**tweetsByHour()**
+
+Returns tweets sorted by the hour of the day they were tweeted (0-23)
+
+Example:
+
+```
+
+{
+   "0":[
+	{
+	  // tweet data 1
+	},
+	{
+	  // tweet data 2
+	},
+	{
+	  // tweet data 3
+	}
+	],
+
+   "1":[
+	{
+	  // tweet data 4
+	}
+]
+
+```
+
+tweetsByMonth()
+
+tweetsByYear()
+
+tweetsWithDates()
+
+textByDay()
+
+textForTotals()
+
 ### Insights
 
+fauxpas()
+
+hashtags()
+
+narcissism()
+
+people()
+
+profanity()
+
+reading()
+
+sentiments()
+
+vocabulary()
 
 ## Dependencies 
 
