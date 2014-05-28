@@ -1,7 +1,5 @@
 # Timeline Insights
 
-## Synopsis
-
 This project provides JavaScript methods for extracting insights and datasets from the Twitter API's user_timeline data on the client.
 
 ## Getting the user_timeline data
