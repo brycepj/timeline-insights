@@ -14,7 +14,7 @@ Insights.prototype.reading = function() {
 	
 	(function() {
 
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0,max = data.length; i < max; i++) {
 
 			// remove words that are ""
 

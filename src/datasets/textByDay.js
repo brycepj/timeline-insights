@@ -1,21 +1,25 @@
-Insights.prototype.textByDay = function() {
+Insights.prototype.textByDay = function () {
 
-	if (this.textDay) {
-		return this.textDay;
-	}
-	
-	var data = this.tweetsByDay(),
-	text;
+    if (this.textDay) {
+        return this.textDay;
+    }
 
-	(function() {
-		for ( var key in data) {
-			var day = data[key];
+    var data = this.tweetsByDay(),
+        text;
 
-			data[key] = _.pluck(day,'text');
-		}
-	})();
-	
-	this.textDay = data;
-	
-	return data;
+    (function () {
+        for (var key in data) {
+
+            if (data.hasOwnProperty(key)) {
+
+                var day = data[key];
+
+                data[key] = _.pluck(day, 'text');
+            }
+        }
+    })();
+
+    this.textDay = data;
+
+    return data;
 };

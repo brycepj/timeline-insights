@@ -11,7 +11,7 @@ Insights.prototype.hashtags = function() {
 	}
 
 	(function() {
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0, max = data.length; i < max; i++) {
 			var tweet = data[i], hashtags = tweet.entities.hashtags, currentHashtags = [];
 			if (hashtags.length > 0) {
 

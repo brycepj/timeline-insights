@@ -12,26 +12,30 @@ var Insights = (function (_) {
 })(_);
 
 
-Insights.prototype.textByDay = function() {
+Insights.prototype.textByDay = function () {
 
-	if (this.textDay) {
-		return this.textDay;
-	}
-	
-	var data = this.tweetsByDay(),
-	text;
+    if (this.textDay) {
+        return this.textDay;
+    }
 
-	(function() {
-		for ( var key in data) {
-			var day = data[key];
+    var data = this.tweetsByDay(),
+        text;
 
-			data[key] = _.pluck(day,'text');
-		}
-	})();
-	
-	this.textDay = data;
-	
-	return data;
+    (function () {
+        for (var key in data) {
+
+            if (data.hasOwnProperty(key)) {
+
+                var day = data[key];
+
+                data[key] = _.pluck(day, 'text');
+            }
+        }
+    })();
+
+    this.textDay = data;
+
+    return data;
 };
 Insights.prototype.textForTotals = function() {
 
@@ -345,7 +349,7 @@ Insights.prototype.fauxpas = function () {
         var scrubbed = [], counted, sorted;
         var prevD = null, prevH = null, prevM = null, prevS = null, prevCount = 0;
 
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0, max = data.length; i < max; i++) {
 
             var tweet = data[i];
 
@@ -417,7 +421,7 @@ Insights.prototype.fauxpas = function () {
             pleaseRTs = 0,
             offenses = [];
 
-        for (var i = 0; i < words.length; i++) {
+        for (var i = 0, max = words.length; i < max; i++) {
             var tweet = words[i];
 
             for (var j = 0; j < tweet.length; j++) {
@@ -470,7 +474,7 @@ Insights.prototype.hashtags = function() {
 	}
 
 	(function() {
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0, max = data.length; i < max; i++) {
 			var tweet = data[i], hashtags = tweet.entities.hashtags, currentHashtags = [];
 			if (hashtags.length > 0) {
 
@@ -572,7 +576,7 @@ Insights.prototype.narcissism = function() {
 		return this.narc;
 	}
 
-	for (var i = 0; i < data.length; i++) {
+	for (var i = 0, max = data.length; i < max; i++) {
 
 		var tweet = data[i],
             hasNarc = false;
@@ -625,7 +629,7 @@ Insights.prototype.people = function () {
 
     (function () {
 
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0, max = data.length; i < max; i++) {
             var tweet = data[i],
                 type = null,
                 user = null,
@@ -764,7 +768,7 @@ Insights.prototype.profanity = function() {
 			.profanityLib(), uses = [], wordCount = 0, count;
 
 	(function() {
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0, max = data.length; i < max; i++) {
 			var word = data[i];
 
 			for (var j = 0; j < lib.length; j++) {
@@ -821,7 +825,7 @@ Insights.prototype.reading = function() {
 	
 	(function() {
 
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0,max = data.length; i < max; i++) {
 
 			// remove words that are ""
 
@@ -941,7 +945,7 @@ Insights.prototype.sentiments = function() {
 		return this.sentimentTotals;
 	}
 	
-	for (var i = 0; i < tweets.length; i++) {
+	for (var i = 0, max = tweets.length; i < max; i++) {
 		var tweet = tweets[i], currentBalance = 0, currentPositive = [], currentNegative = [];
 
 		for (var j = 0; j < tweet.length; j++) {

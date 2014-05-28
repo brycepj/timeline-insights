@@ -10,7 +10,7 @@ Insights.prototype.profanity = function() {
 			.profanityLib(), uses = [], wordCount = 0, count;
 
 	(function() {
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0, max = data.length; i < max; i++) {
 			var word = data[i];
 
 			for (var j = 0; j < lib.length; j++) {

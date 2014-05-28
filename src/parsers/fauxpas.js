@@ -8,7 +8,7 @@ Insights.prototype.fauxpas = function () {
         var scrubbed = [], counted, sorted;
         var prevD = null, prevH = null, prevM = null, prevS = null, prevCount = 0;
 
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0, max = data.length; i < max; i++) {
 
             var tweet = data[i];
 
@@ -80,7 +80,7 @@ Insights.prototype.fauxpas = function () {
             pleaseRTs = 0,
             offenses = [];
 
-        for (var i = 0; i < words.length; i++) {
+        for (var i = 0, max = words.length; i < max; i++) {
             var tweet = words[i];
 
             for (var j = 0; j < tweet.length; j++) {

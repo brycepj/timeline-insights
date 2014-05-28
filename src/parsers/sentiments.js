@@ -7,7 +7,7 @@ Insights.prototype.sentiments = function() {
 		return this.sentimentTotals;
 	}
 	
-	for (var i = 0; i < tweets.length; i++) {
+	for (var i = 0, max = tweets.length; i < max; i++) {
 		var tweet = tweets[i], currentBalance = 0, currentPositive = [], currentNegative = [];
 
 		for (var j = 0; j < tweet.length; j++) {
