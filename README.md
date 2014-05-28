@@ -463,21 +463,45 @@ fullText:[
 
 ### Insights
 
-fauxpas()
+**fauxpas()**
 
-hashtags()
+*fauxpas().plsRT()*
 
-narcissism()
+Returns insights on use (and variations) of the phrase "please RT". 
 
-people()
+*fauxpas().rant()*
 
-profanity()
+Returns insights on instances when tweets occur multiple times in the same minute. 
 
-reading()
+** I would love some help adding to this method. I'm sure there are many more fauxpas we can discover.
 
-sentiments()
+**hashtags()**
 
-vocabulary()
+Returns data about hashtag use, including all hashtags used, counts of hashtags used, examples of tweets with many hashtags used (and more). 
+
+**narcissism()**
+
+Returns data uses of self-centered language, including narcissism levels overall, most self-centered tweets, quantitative breakdown of self-centered word use (and more). 
+
+**people()**
+
+Returns insights about the people a user tweets at the most, who they retweet the most, who they mention the most, as well as breakdowns of their tweets by 'replies', 'retweets', and 'statements'.
+
+**profanity()**
+
+Returns insights about profanity use in tweets, including favorite profanity, and frequency of use.
+
+**reading()**
+
+Returns established text analysis statistics: Flesh-Kinkaid Grade Level and Ease, and Fog Scale.
+
+**sentiments()**
+
+Returns all sorts of interesting information about people's positive and negative sentiments, as communicated by their tweets. It uses the AFFIN sentiment scoring, which asigns words a score from -4 through +4. 
+
+**vocabulary()**
+
+Returns information about the breadth of the user's vocabulary (the number of unique words they use).
 
 ## Dependencies 
 
