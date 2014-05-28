@@ -82,11 +82,10 @@ Insights.prototype.textForTotals = function() {
 			var tweet = results[j];
 
 			for (var k = 0; k < tweet.length; k++) {
-				var word = tweet[k];
-
-				var punctuationless = word.replace(
-						/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g, "");
-				var finalString = punctuationless.replace(/\s{2,}/g, " ");
+				var word = tweet[k],
+                    punctuationless = word.replace(
+						/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g, ""),
+                    finalString = punctuationless.replace(/\s{2,}/g, " ");
 
 				tweet[k] = finalString.toLowerCase();
 
@@ -122,11 +121,10 @@ Insights.prototype.textForTotals = function() {
 			var tweet = results[j];
 
 			for (var k = 0; k < tweet.length; k++) {
-				var word = tweet[k];
-
-				var punctuationless = word.replace(
-						/[\,-@\/$%\^&\*;:{}=\-_`~()]/g, "");
-				var finalString = punctuationless.replace(/\s{2,}/g, "");
+				var word = tweet[k],
+                    punctuationless = word.replace(
+						/[\,-@\/$%\^&\*;:{}=\-_`~()]/g, ""),
+                    finalString = punctuationless.replace(/\s{2,}/g, "");
 
 				tweet[k] = finalString.toLowerCase();
 
@@ -158,9 +156,8 @@ Insights.prototype.tweetCalendar = function() {
 	var data = _.cloneDeep(this.tweetsByYear());
 
 	for ( var prop in data) {
-		var year = data[prop];
-
-		var sorted = _.groupBy(year, function(val) {
+		var year = data[prop],
+            sorted = _.groupBy(year, function(val) {
 			return val.moment._a[1];
 		});
 
@@ -173,9 +170,8 @@ Insights.prototype.tweetCalendar = function() {
 			var year = data[prop];
 
 			for ( var prop2 in year) {
-				var month = year[prop2];
-
-				var sorted = _.groupBy(month, function(val) {
+				var month = year[prop2],
+                    sorted = _.groupBy(month, function(val) {
 					return val.moment._a[2];
 				});
 
@@ -339,134 +335,135 @@ Insights.prototype.tweetsWithDates = function (simple) {
 
 };
 
-Insights.prototype.fauxpas = function() {
+Insights.prototype.fauxpas = function () {
 
-	var data = this.tweetsWithDates();
-	var text = this.textForTotals();
+    var data = this.tweetsWithDates(),
+        text = this.textForTotals();
 
-	function rant() {
+    function rant() {
 
-		var scrubbed = [], counted, sorted;
-		var prevD = null, prevH = null, prevM = null, prevS = null, prevCount = 0;
+        var scrubbed = [], counted, sorted;
+        var prevD = null, prevH = null, prevM = null, prevS = null, prevCount = 0;
 
-		for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
 
-			var tweet = data[i];
+            var tweet = data[i];
 
-			if (!tweet.in_reply_to_screen_name) {
-				var currentDay = tweet.dateStr;
-				var currentHour = tweet.moment._a[3];
-				var currentMin = tweet.moment._a[4];
-				var currentSec = tweet.moment._a[5];
+            if (!tweet.in_reply_to_screen_name) {
+                var currentDay = tweet.dateStr,
+                    currentHour = tweet.moment._a[3],
+                    currentMin = tweet.moment._a[4],
+                    currentSec = tweet.moment._a[5];
 
-				if (i === 0) {
-					prevD = currentDay;
-					prevH = currentHour;
-					prevM = currentMin;
-					prevS = currentSec;
+                if (i === 0) {
+                    prevD = currentDay;
+                    prevH = currentHour;
+                    prevM = currentMin;
+                    prevS = currentSec;
 
-				} else {
+                } else {
 
-					if (currentDay === prevD
-							&& currentHour === prevH
-							&& (currentMin === prevM || currentMin === prevM + 1)) {
-						prevCount += 1;
+                    if (currentDay === prevD
+                        && currentHour === prevH
+                        && (currentMin === prevM || currentMin === prevM + 1)) {
+                        prevCount += 1;
 
-						scrubbed.push({
-							day : prevD,
-							hour : prevH,
-							min : prevM,
-							sec : prevS,
-							count : prevCount
-						});
+                        scrubbed.push({
+                            day: prevD,
+                            hour: prevH,
+                            min: prevM,
+                            sec: prevS,
+                            count: prevCount
+                        });
 
-					} else {
+                    } else {
 
-						prevD = currentDay;
-						prevH = currentHour;
-						prevM = currentMin;
-						prevS = currentSec;
+                        prevD = currentDay;
+                        prevH = currentHour;
+                        prevM = currentMin;
+                        prevS = currentSec;
 
-						prevCount = 0;
-					}
-				}
-			}
+                        prevCount = 0;
+                    }
+                }
+            }
 
-		}
+        }
 
-		counted = _.filter(scrubbed, function(dup) {
-			return dup.count > 1;
-		});
+        counted = _.filter(scrubbed, function (dup) {
+            return dup.count > 1;
+        });
 
-		uniq = _.forEach(counted, function(tweet) {
-			var str = tweet.day + tweet.hour + tweet.min;
-			tweet.str = str;
-		});
+        uniq = _.forEach(counted, function (tweet) {
+            var str = tweet.day + tweet.hour + tweet.min;
+            tweet.str = str;
+        });
 
-		sorted = _.countBy(uniq, function(tweet) {
-			return tweet.str;
-		});
+        sorted = _.countBy(uniq, function (tweet) {
+            return tweet.str;
+        });
 
-		return {
-			count : sorted.length,
-			times : sorted
-		};
-	}
+        return {
+            count: sorted.length,
+            times: sorted
+        };
+    }
 
-	function plsRT() {
+    function plsRT() {
 
-		var words = text.wordLevel;
-		var fullText = text.fullText;
-		var please = false;
-		var pleaseRTs = 0;
-		var offenses = [];
-		
-		for (var i = 0; i < words.length; i++) {
-			var tweet = words[i];
+        var words = text.wordLevel,
+            fullText = text.fullText,
+            please = false,
+            pleaseRTs = 0,
+            offenses = [];
 
-			for (var j = 0; j < tweet.length; j++) {
-				var word = tweet[j];
-				word = word.toLowerCase();
+        for (var i = 0; i < words.length; i++) {
+            var tweet = words[i];
 
-				if (please) {
-					if (word === "rt" || word === "retweet") {
-						pleaseRTs++;
-						offenses.push(fullText[i]);
-					}
+            for (var j = 0; j < tweet.length; j++) {
+                var word = tweet[j];
+                word = word.toLowerCase();
 
-					please = false;
-				}
+                if (please) {
+                    if (word === "rt" || word === "retweet") {
+                        pleaseRTs++;
+                        offenses.push(fullText[i]);
+                    }
 
-				if (word === "please" || word === "plz" || word === "pls") {
-					please = true;
-					
-				}
+                    please = false;
+                }
 
-			}
+                if (word === "please" || word === "plz" || word === "pls") {
+                    please = true;
 
-		}
+                }
 
-		return {
-			count : offenses.length,
-			text : offenses
-		};
-	}
+            }
 
-	return {
-		rant : function() {
-			return rant();
-		},
-		plsRT : function() {
-			return plsRT();
-		}
-	};
+        }
+
+        return {
+            count: offenses.length,
+            text: offenses
+        };
+    }
+
+    return {
+        rant: function () {
+            return rant();
+        },
+        plsRT: function () {
+            return plsRT();
+        }
+    };
 };
 Insights.prototype.hashtags = function() {
 
-	var data = this.d;
-	var allHashtags = [];
-	var tweets = [];
-	var totals, results;
+	var data = this.d,
+        allHashtags = [],
+        tweets = [],
+        totals,
+        results;
 
 	if (this.hashtagStats) {
 		return this.hashtagStats;
@@ -559,9 +556,17 @@ Insights.prototype.hashtags = function() {
 
 Insights.prototype.narcissism = function() {
 
-	var data = this.textForTotals().wordLevel, fullText = this.textForTotals().fullText, narcList = [
+	var data = this.textForTotals().wordLevel,
+        fullText = this.textForTotals().fullText,
+        narcList = [
 			'i', 'me', 'my', 'mine', 'myself', "i've", "i'm", "i'd", 'ive',
-			'im', 'id' ], results, narcUses = [], narcTweets = [], narcTweetCount = 0, narcPercent, counts;
+			'im', 'id' ],
+        results,
+        narcUses = [],
+        narcTweets = [],
+        narcTweetCount = 0,
+        narcPercent,
+        counts;
 
 	if (this.narc) {
 		return this.narc;
@@ -569,8 +574,8 @@ Insights.prototype.narcissism = function() {
 
 	for (var i = 0; i < data.length; i++) {
 
-		var tweet = data[i];
-		var hasNarc = false;
+		var tweet = data[i],
+            hasNarc = false;
 
 		for (var k = 0; k < tweet.length; k++) {
 			var word = tweet[k];
@@ -621,11 +626,11 @@ Insights.prototype.people = function () {
     (function () {
 
         for (var i = 0; i < data.length; i++) {
-            var tweet = data[i];
-            var type = null;
-            var user = null;
-            var primary = null;
-            var users = tweet.entities.user_mentions;
+            var tweet = data[i],
+                type = null,
+                user = null,
+                primary = null,
+                users = tweet.entities.user_mentions;
             // set type
 
             if (tweet.in_reply_to_screen_name) {
@@ -672,11 +677,9 @@ Insights.prototype.people = function () {
 
         var retweets = _.filter(peopleData,function(tweet){
            return tweet.type === "retweet";
-        });
-
-        var allUsers = _.pluck(retweets,"primary");
-
-        var favorites = _.countBy(allUsers,function(sn){
+        }),
+            allUsers = _.pluck(retweets,"primary"),
+            favorites = _.countBy(allUsers,function(sn){
             return sn;
         });
 
@@ -692,9 +695,8 @@ Insights.prototype.people = function () {
 
         var replies = _.filter(peopleData,function(tweet){
            return tweet.type === "reply";
-        });
-
-        var allUsers = _.forEach(replies,function(tweet){
+        }),
+            allUsers = _.forEach(replies,function(tweet){
 
             if (tweet.users) {
                 tweet.users.push(tweet.primary);
@@ -805,11 +807,11 @@ Insights.prototype.profanity = function() {
 };
 Insights.prototype.reading = function() {
 
-	var results = [];
-	var data = this.textForTotals().sentenceLevel;
-	var fullText = this.textForTotals().fullText;
-	var readingPerTweet = [];
-	var totals;
+	var results = [],
+        data = this.textForTotals().sentenceLevel,
+        fullText = this.textForTotals().fullText,
+        readingPerTweet = [],
+        totals;
 	
 	if (this.readingTotals) {
 		return this.readingTotals;
@@ -830,9 +832,8 @@ Insights.prototype.reading = function() {
 			var sentences = fullText[i].split(/[.|!|?]\s/gi);
 
 			for (var j = 0; j < tweet.length; j++) {
-				var word = tweet[j];
-
-				var syllables = (function() {
+				var word = tweet[j],
+                    syllables = (function() {
 
 					word = word.toLowerCase(); // word.downcase!
 					if (word.length <= 3) {
@@ -898,10 +899,9 @@ Insights.prototype.reading = function() {
 	}
 
 	function getFlesch() {
-		var data = totals;
-		
-		var WPS = data.wordsPerSentence;
-		var SPW = data.syllablesPerWord;
+		var data = totals,
+            WPS = data.wordsPerSentence,
+            SPW = data.syllablesPerWord;
 		
 		
 		return {
@@ -911,9 +911,9 @@ Insights.prototype.reading = function() {
 	}
 
 	function getFog() {
-		var data = totals;
-		var ASL = Number(data.wordsPerSentence);
-		var PHW = Number(data.percentLongWords);
+		var data = totals,
+            ASL = Number(data.wordsPerSentence),
+            PHW = Number(data.percentLongWords);
 		
 		return (0.4*(ASL + PHW)).toFixed(2);
 	}
@@ -935,9 +935,7 @@ Insights.prototype.reading = function() {
 Insights.prototype.sentiments = function() {
 	
 	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this
-			.sentimentLib(),results;
-
-	var negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
+			.sentimentLib(),results,negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
 
 	if (this.sentimentTotals) {
 		return this.sentimentTotals;
@@ -951,8 +949,8 @@ Insights.prototype.sentiments = function() {
 			totalWords++;
 
 			for ( var key in lib) {
-				var sent = key;
-				var score = lib[key];
+				var sent = key,
+                    score = lib[key];
 
 				if (word === sent) {
 					if (score > 0) {
@@ -1038,9 +1036,8 @@ Insights.prototype.vocabulary = function(){
 	
 	(function(){
 		
-		var TOTAL = 35000;
-		
-		var multiple = (TOTAL/allWords.length);
+		var TOTAL = 35000,
+            multiple = (TOTAL/allWords.length);
 		
 		equiv = uniqueWords.length * multiple;
 		

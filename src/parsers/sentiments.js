@@ -1,9 +1,7 @@
 Insights.prototype.sentiments = function() {
 	
 	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this
-			.sentimentLib(),results;
-
-	var negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
+			.sentimentLib(),results,negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
 
 	if (this.sentimentTotals) {
 		return this.sentimentTotals;
@@ -17,8 +15,8 @@ Insights.prototype.sentiments = function() {
 			totalWords++;
 
 			for ( var key in lib) {
-				var sent = key;
-				var score = lib[key];
+				var sent = key,
+                    score = lib[key];
 
 				if (word === sent) {
 					if (score > 0) {

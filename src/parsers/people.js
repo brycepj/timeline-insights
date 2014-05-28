@@ -10,11 +10,11 @@ Insights.prototype.people = function () {
     (function () {
 
         for (var i = 0; i < data.length; i++) {
-            var tweet = data[i];
-            var type = null;
-            var user = null;
-            var primary = null;
-            var users = tweet.entities.user_mentions;
+            var tweet = data[i],
+                type = null,
+                user = null,
+                primary = null,
+                users = tweet.entities.user_mentions;
             // set type
 
             if (tweet.in_reply_to_screen_name) {
@@ -61,11 +61,9 @@ Insights.prototype.people = function () {
 
         var retweets = _.filter(peopleData,function(tweet){
            return tweet.type === "retweet";
-        });
-
-        var allUsers = _.pluck(retweets,"primary");
-
-        var favorites = _.countBy(allUsers,function(sn){
+        }),
+            allUsers = _.pluck(retweets,"primary"),
+            favorites = _.countBy(allUsers,function(sn){
             return sn;
         });
 
@@ -81,9 +79,8 @@ Insights.prototype.people = function () {
 
         var replies = _.filter(peopleData,function(tweet){
            return tweet.type === "reply";
-        });
-
-        var allUsers = _.forEach(replies,function(tweet){
+        }),
+            allUsers = _.forEach(replies,function(tweet){
 
             if (tweet.users) {
                 tweet.users.push(tweet.primary);

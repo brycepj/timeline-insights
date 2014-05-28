@@ -1,9 +1,10 @@
 Insights.prototype.hashtags = function() {
 
-	var data = this.d;
-	var allHashtags = [];
-	var tweets = [];
-	var totals, results;
+	var data = this.d,
+        allHashtags = [],
+        tweets = [],
+        totals,
+        results;
 
 	if (this.hashtagStats) {
 		return this.hashtagStats;
