@@ -157,26 +157,16 @@ Example:
    "2012":{
       "06":{
          "26":[
-            {
-               // individual tweet data #1
-            }
+            { // tweet data 1 }
 
          ],
          "27":[
-            {
-               // individual tweet data #2
-            },
-            {
-              // individual tweet data #3
-            }
+            { // tweet data 2 },
+            { // tweet data 3 }
          ],
 	"28":[
-            {
-               // individual tweet data #4
-            },
-            {
-              // individual tweet data #5
-            }
+            { // tweet data 4 },
+            { // tweet data 5 }
          ]
 }
 ```
@@ -190,28 +180,16 @@ Example:
 ```
 {
    "20120726":[
-      {
-          // individual tweet #1
-      }
+      { // tweet data 1 }
    ],
    "20120727":[
-      {
-         // individual tweet data #2
-      },
-      {
-         // individual tweet data #3
-      },
-      {
-         // individual tweet data #4
-      }
+      { // tweet data 2 },
+      { // tweet data 3 },
+      { // tweet data 4 }
    ],
    "20120728":[
-      {
-         // individual tweet data #5
-      },
-      {
-         // individual tweet data #6
-      }
+      { // tweet data 5 },
+      { // tweet data 6 }
    ]
 
 }
@@ -227,21 +205,13 @@ Example:
 
 {
    "0":[
-	{
-	  // tweet data 1
-	},
-	{
-	  // tweet data 2
-	},
-	{
-	  // tweet data 3
-	}
+	{ // tweet data 1 },
+	{ // tweet data 2 },
+	{ // tweet data 3 }
 	],
 
    "1":[
-	{
-	  // tweet data 4
-	}
+	{ // tweet data 4 }
 ]
 
 ```
@@ -256,21 +226,13 @@ Example:
 
 {
    "0":[
-	{
-	  // tweet data 1
-	},
-	{
-	  // tweet data 2
-	},
-	{
-	  // tweet data 3
-	}
+	{ // tweet data 1 },
+	{ // tweet data 2 },
+	{ // tweet data 3 }
 	],
 
    "1":[
-	{
-	  // tweet data 4
-	}
+	{ // tweet data 4 }
 ]
 
 ```
@@ -285,21 +247,13 @@ Example:
 
 {
    "2012":[
-	{
-	  // tweet data 1
-	},
-	{
-	  // tweet data 2
-	},
-	{
-	  // tweet data 3
-	}
+	{ // tweet data 1 },
+	{ // tweet data 2 },
+	{ // tweet data 3 }
 	],
 
    "2011":[
-	{
-	  // tweet data 4
-	}
+	{ // tweet data 4 }
 ]
 
 ```
@@ -376,88 +330,24 @@ Example:
 
 ```
 {
-   "wordLevel":[
-      [
-         "twitter",
-         "status",
-         "via"
-      ],
-      [
-         "cool",
-         "rt",
-         "olympic",
-         "tech",
-         "2012",
-         "gadgets",
-         "and",
-         "gizmos",
-         "of",
-         "the",
-         "games"
-      ],
-      [
-         "olympians",
-         "to",
-         "follow",
-         "london2012"
-      ],
-      [
-         "badluckbri",
-         "life",
-         "gives",
-         "him",
-         "lemons",
-         "and",
-         "aids”"
-      ],
+   	"wordLevel":[
+	      ["twitter", "status","via"],
+	      ["cool","rt","olympic","tech","2012","gadgets","and","gizmos","of","the","games"],
+	      ["olympians","to","follow","london2012"]
+		],
+
+	"sentenceLevel":[
+		["cool","new","feature","released!","gush","a","story","and","it","gets","pushed","to","your","facebook","timeline!"],
+   		["it","couldn't","go","on","forever","you","know","facebook","will","soon","force","you","to","switch","to","timeline","by"]
 	],
 
-"sentenceLevel":[
-	[
-      "cool",
-      "new",
-      "feature",
-      "released!",
-      "gush",
-      "a",
-      "story",
-      "and",
-      "it",
-      "gets",
-      "pushed",
-      "to",
-      "your",
-      "facebook",
-      "timeline!"
-	   ],
-   [
-      "it",
-      "couldn't",
-      "go",
-      "on",
-      "forever",
-      "you",
-      "know",
-      "facebook",
-      "will",
-      "soon",
-      "force",
-      "you",
-      "to",
-      "switch",
-      "to",
-      "timeline",
-      "by"
-   ]
-],
-
-fullText:[
-   "Twitter Status http://t.co/po9dIsjx via @twitter",
-   "Cool. RT @DigitalTrends: Olympic tech 2012: Gadgets and gizmos of the games http://t.co/H2hy2Mu6",
-   "RT @mashsocialmedia: Facebook: Sponsored Stories Make $1 Million a Day http://t.co/HKx7HFLX",
-   "Olympians to follow: http://t.co/MSob9f8q #London2012",
-   “@_BadLuckBri:Life gives him lemons. And aids”
-]
+	fullText:[
+	   "Twitter Status http://t.co/po9dIsjx via @twitter",
+	   "Cool. RT @DigitalTrends: Olympic tech 2012: Gadgets and gizmos of the games http://t.co/H2hy2Mu6",
+	   "RT @mashsocialmedia: Facebook: Sponsored Stories Make $1 Million a Day http://t.co/HKx7HFLX",
+	   "Olympians to follow: http://t.co/MSob9f8q #London2012",
+	   “@_BadLuckBri:Life gives him lemons. And aids”
+	]
 
 ```
 
