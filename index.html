@@ -38,9 +38,10 @@
 
                 var time = new Date();
 				
-				var use = insights.tweetsByHour();
+				var use = insights.textForTotals().fullText;
 
 				$('body').html(JSON.stringify(use));
+				console.log(use);
 
 				console.log('items:',data.length,'time:', (new Date() - time)/1000);
 				

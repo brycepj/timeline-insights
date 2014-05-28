@@ -246,15 +246,220 @@ Example:
 
 ```
 
-tweetsByMonth()
+**tweetsByMonth()**
 
-tweetsByYear()
+Returns tweets sorted by the month of year they were tweeted (0-11)
 
-tweetsWithDates()
+Example:
 
-textByDay()
+```
 
-textForTotals()
+{
+   "0":[
+	{
+	  // tweet data 1
+	},
+	{
+	  // tweet data 2
+	},
+	{
+	  // tweet data 3
+	}
+	],
+
+   "1":[
+	{
+	  // tweet data 4
+	}
+]
+
+```
+
+**tweetsByYear()**
+
+Returns tweets sorted by the year they were tweeted
+
+Example:
+
+```
+
+{
+   "2012":[
+	{
+	  // tweet data 1
+	},
+	{
+	  // tweet data 2
+	},
+	{
+	  // tweet data 3
+	}
+	],
+
+   "2011":[
+	{
+	  // tweet data 4
+	}
+]
+
+```
+
+**tweetsWithDates()**
+
+Returns tweets, sorted chronologically, with "moment" data incorporated. Pass in "simple" to bypass using Moment.JS and simply add property "dateStr" which is string representing the date of the tweet.
+
+Example: (most tweet data properties removed)
+
+```
+[
+   {
+      "coordinates":null,
+      "in_reply_to_screen_name":null,
+      "in_reply_to_user_id":null,
+      "truncated":false,
+      "moment": {
+	_a:[ 0: 2012, 1: 06, 2: 26, 3: 16, 4: 48, 5: 30, 6: 0],
+	_d: Thu Jul 26 2012 16:48:30 GMT-0400 (EDT)
+	_f: "YYYY-MM-DD hh:mm:ss"
+	_i: "2012-07-26 16:48:30"
+	_isAMomentObject: true
+	_isUTC: false
+	_l: undefined
+	_pf: Object"
+	},
+      "dateStr":"20120627"
+   }
+]
+
+```
+
+**textByDay()**
+
+Returns tweet text sorted by day, broken up by word into arrays. Useful for text analysis. 
+
+Example: 
+
+```
+{
+   "20120726":[
+      "Twitter Status http://t.co/po9dIsjx via @twitter"
+   ],
+   "20120727":[
+      "Cool. RT @DigitalTrends: Olympic tech 2012: Gadgets and gizmos of the games http://t.co/H2hy2Mu6",
+      "RT @mashsocialmedia: Facebook: Sponsored Stories Make $1 Million a Day http://t.co/HKx7HFLX",
+      "Olympians to follow: http://t.co/MSob9f8q #London2012"
+   ],
+   "20120728":[
+      "“@_BadLuckBri: Life gives him lemons. And aids” @TrygveJensen",
+      "NBC thinks you're dumb http://t.co/SnB1OVu6"
+   ]
+}
+```
+
+**textForTotals()**
+
+Returns 3 objects: forWords, forSentences, and fullText. 
+
+*textForTotals().forWords*
+
+Returns tweets sorted chronologically, as arrays broken up by words. All symbols and URLs removed.
+
+*textForTotals().forSentences*
+
+Returns tweets sorted chronologically, as arrays broken up by words. All symbols, hashtags, and URLs removed, except for sentence-ending punctuation marks. This allows for sentence-based analysis.
+
+*textForTotals().fullText*
+
+Returns tweet text sorted chronologically, as strings, not arrays.
+
+Example: 
+
+```
+{
+   "wordLevel":[
+      [
+         "twitter",
+         "status",
+         "via"
+      ],
+      [
+         "cool",
+         "rt",
+         "olympic",
+         "tech",
+         "2012",
+         "gadgets",
+         "and",
+         "gizmos",
+         "of",
+         "the",
+         "games"
+      ],
+      [
+         "olympians",
+         "to",
+         "follow",
+         "london2012"
+      ],
+      [
+         "badluckbri",
+         "life",
+         "gives",
+         "him",
+         "lemons",
+         "and",
+         "aids”"
+      ],
+	],
+
+"sentenceLevel":[
+	[
+      "cool",
+      "new",
+      "feature",
+      "released!",
+      "gush",
+      "a",
+      "story",
+      "and",
+      "it",
+      "gets",
+      "pushed",
+      "to",
+      "your",
+      "facebook",
+      "timeline!"
+	   ],
+   [
+      "it",
+      "couldn't",
+      "go",
+      "on",
+      "forever",
+      "you",
+      "know",
+      "facebook",
+      "will",
+      "soon",
+      "force",
+      "you",
+      "to",
+      "switch",
+      "to",
+      "timeline",
+      "by"
+   ]
+],
+
+fullText:[
+   "Twitter Status http://t.co/po9dIsjx via @twitter",
+   "Cool. RT @DigitalTrends: Olympic tech 2012: Gadgets and gizmos of the games http://t.co/H2hy2Mu6",
+   "RT @mashsocialmedia: Facebook: Sponsored Stories Make $1 Million a Day http://t.co/HKx7HFLX",
+   "Olympians to follow: http://t.co/MSob9f8q #London2012",
+   “@_BadLuckBri:Life gives him lemons. And aids”
+]
+
+```
 
 ### Insights
 
@@ -276,7 +481,7 @@ vocabulary()
 
 ## Dependencies 
 
-This project has one hard dependency: [LoDash](http://lodash.com/). 
+This project has two hard dependencies: [LoDash](http://lodash.com/) and [Moment](http://momentjs.com/). 
 
 ## Performance
 
