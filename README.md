@@ -140,8 +140,6 @@ var data = $.getJSON('twitter.api.request').done(function(data) {
 ```
 ## API Reference
 
-(still need to go through and decide on naming conventions)
-
 ### Datasets
 
 **tweetCalendar()**
