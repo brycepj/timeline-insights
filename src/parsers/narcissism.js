@@ -12,8 +12,8 @@ Insights.prototype.narcissism = function() {
         narcPercent,
         counts;
 
-	if (this.narc) {
-		return this.narc;
+	if (this.nc) {
+		return this.nc;
 	}
 
 	for (var i = 0, max = data.length; i < max; i++) {
@@ -46,14 +46,14 @@ Insights.prototype.narcissism = function() {
 		return word;
 	});
 
-	this.narc = {
+	this.nc = {
 		narcTweetCount : narcTweetCount,
 		counts : counts,
 		narcTweetsPercent : Number(((narcTweetCount / data.length) * 100).toFixed(2)),
 		narcTweets : narcTweets
 	};
 
-	results = this.narc;
+	results = this.nc;
 
 	return results;
 
