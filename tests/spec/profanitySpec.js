@@ -6,8 +6,7 @@ describe('profanity insights',function(){
 		$.getJSON('../data/bryce.json').done(function(data) {
 			insights = new Insights(data);
 			profanity = insights.profanity();
-			
-			// Signal test to start
+
 			done();
 		});
 	});
@@ -33,18 +32,16 @@ describe('profanity insights',function(){
 
 			if (Object.keys(c).length > 0) {
 
-			for (var key in c) {
+				for (var key in c) {
+					
+					expect(c[key]).toBeGreaterThan(0);
 				
-				expect(c[key]).toBeGreaterThan(0);
-				
+				}
 			}
 		
-		}
-		
-		done();
+			done();
 		
 		});
-		
 		
 	});
 	
@@ -76,10 +73,5 @@ describe('profanity insights',function(){
 		
 		
 	});
-	
-	
-	
-	
-	
 	
 });
