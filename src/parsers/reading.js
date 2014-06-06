@@ -6,8 +6,8 @@ Insights.prototype.reading = function() {
         readingPerTweet = [],
         totals;
 	
-	if (this.readingTotals) {
-		return this.readingTotals;
+	if (this.rd) {
+		return this.rd;
 	}
 
 	// store reading data for each tweet
@@ -113,14 +113,14 @@ Insights.prototype.reading = function() {
 	
 	getTotals();
 	
-	this.readingTotals = {
+	this.rd = {
 		fog : getFog(),
 		flesch : getFlesch(),
 		totals:totals,
 		tweets : readingPerTweet
 	};
 
-	results = this.readingTotals;
+	results = this.rd;
 
 	return results;
 
