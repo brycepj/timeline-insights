@@ -6,8 +6,8 @@ Insights.prototype.hashtags = function() {
         totals,
         results;
 
-	if (this.hashtagStats) {
-		return this.hashtagStats;
+	if (this.ht) {
+		return this.ht;
 	}
 
 	(function() {
@@ -83,14 +83,14 @@ Insights.prototype.hashtags = function() {
 		};
 	}
 
-	this.hashtagStats = {
+	this.ht = {
 		totals : totals,
 		usage : countUsage(),
 		favorites : countFavorites(),
 		sins : countSins()
 	};
 
-	results = this.hashtagStats;
+	results = this.ht;
 
 	return results;
 };
