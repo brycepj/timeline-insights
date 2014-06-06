@@ -1,12 +1,12 @@
 Insights.prototype.sentiments = function() {
-	
-	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this
-			.sentimentLib(),results,negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
 
-	if (this.sentimentTotals) {
-		return this.sentimentTotals;
+	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this
+			.sentimentLib(), results, negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
+
+	if (this.st) {
+		return this.st;
 	}
-	
+
 	for (var i = 0, max = tweets.length; i < max; i++) {
 		var tweet = tweets[i], currentBalance = 0, currentPositive = [], currentNegative = [];
 
@@ -15,8 +15,7 @@ Insights.prototype.sentiments = function() {
 			totalWords++;
 
 			for ( var key in lib) {
-				var sent = key,
-                    score = lib[key];
+				var sent = key, score = lib[key];
 
 				if (word === sent) {
 					if (score > 0) {
@@ -69,19 +68,19 @@ Insights.prototype.sentiments = function() {
 		return tweet.balance;
 	}).reverse();
 
-	results = {
-			negativeWords : negativeWords,
-			positiveWords : positiveWords,
-			negPosWords : negativeWords.concat(positiveWords),
-			balance : balance,
-			negativeTweets : negativeTweets,
-			positiveTweets : positiveTweets,
-			neutralTweetCount : neutralTweetCount,
-			totalWords : totalWords
-		};
-	
-	this.sentimentTotals  = results;
-	
+	this.st = {
+		negativeWords : negativeWords,
+		positiveWords : positiveWords,
+		negPosWords : negativeWords.concat(positiveWords),
+		balance : balance,
+		negativeTweets : negativeTweets,
+		positiveTweets : positiveTweets,
+		neutralTweetCount : neutralTweetCount,
+		totalWords : totalWords
+	};
+
+	results = this.st;
+
 	return results;
 
 };
