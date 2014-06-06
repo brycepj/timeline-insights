@@ -43,8 +43,8 @@ Insights.prototype.profanity = function() {
 
 	this.pf = {
 		count : getCounts(),
-		frequency : (wordCount / uses.length).toFixed(0),
-		percent : ((uses.length / wordCount) * 100).toFixed(8)
+		frequency : Number((wordCount / uses.length).toFixed(0)),
+		percent : Number(((uses.length / wordCount) * 100).toFixed(8))
 	};
 
 	results = this.pf;
