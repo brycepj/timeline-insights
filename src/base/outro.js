@@ -1,3 +1,4 @@
 
+window.Insights = Insights;
 
 })();
