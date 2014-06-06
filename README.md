@@ -399,5 +399,5 @@ This project has two hard dependencies: [LoDash](http://lodash.com/) and [Moment
 
 ## Performance
 
-For large datasets (Twitter allows you to pull up to 3200 tweets), some Insights methods can take several seconds to process on slower operating systems (ie: mobile, legacy). This will lock up the browser completely.I *highly* recommend using Web Workers to extract these insights in the background so as to not affect the user's experience of your application. 
+For large datasets (Twitter allows you to pull up to 3200 tweets), some Insights methods can take several seconds to process on slower operating systems (ie: mobile, legacy). This will lock up the browser completely. I *highly* recommend using Web Workers to extract these insights in the background so as to not affect the user's experience of your application. 
 
