@@ -1,6 +1,5 @@
 (function(){
 
-
 var Insights = (function (_) {
 
     function Insights(data, settings) {
