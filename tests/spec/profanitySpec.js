@@ -27,8 +27,7 @@ describe('profanity insights',function(){
 	
 		it('should positive integers as values', function(done){	
 
-			var p = insights.profanity();
-			var c = p.count;
+			var c = profanity.count;
 
 			if (Object.keys(c).length > 0) {
 
@@ -49,7 +48,7 @@ describe('profanity insights',function(){
 		
 		it('should be a decimal',function(done){
 			
-			var percent = insights.profanity().percent;
+			var percent = profanity.percent;
 			
 			expect(percent >= 0).toBeTruthy();
 			expect(percent).toBeLessThan(1);
@@ -64,7 +63,7 @@ describe('profanity insights',function(){
 		
 		it('should be less often than every tweet',function(done){
 			
-			var frequency = insights.profanity().frequency;
+			var frequency = profanity.frequency;
 			
 			expect(frequency >= 1).toBeTruthy();
 
