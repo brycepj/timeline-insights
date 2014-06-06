@@ -389,11 +389,15 @@ Returns all sorts of interesting information about people's positive and negativ
 
 Returns information about the breadth of the user's vocabulary (the number of unique words they use).
 
+**all()**
+
+Returns an object containing all the values of all Insights methods. 
+
 ## Dependencies 
 
 This project has two hard dependencies: [LoDash](http://lodash.com/) and [Moment](http://momentjs.com/). 
 
 ## Performance
 
-For large datasets (Twitter allows you to pull up to 3200 tweets), some Insights methods can take several seconds to process. This will lock up the browser completely. If this is what you're experiencing, I highly recommend using Web Workers to extract these insights in the background so as to not affect the user's experience of your application. 
+For large datasets (Twitter allows you to pull up to 3200 tweets), some Insights methods can take several seconds to process on slower operating systems (ie: mobile, legacy). This will lock up the browser completely.I *highly* recommend using Web Workers to extract these insights in the background so as to not affect the user's experience of your application. 
 
