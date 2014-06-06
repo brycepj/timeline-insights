@@ -88,9 +88,7 @@ describe("PEOPLE",function(){
 			
 			done();
 		});
-		
-		
-		
+
 	});
 	
 	describe("total tweets",function(){
@@ -131,8 +129,6 @@ describe("PEOPLE",function(){
 				}
 				
 			}
-			
-			
 			
 			done();
 		});
