@@ -3,8 +3,8 @@ Insights.prototype.people = function () {
     var data = this.d, results, totals,
         peopleData = [];
 
-    if (this.peopleStats) {
-        return this.peopleStats;
+    if (this.pp) {
+        return this.pp;
     }
 
     (function () {
@@ -124,7 +124,7 @@ Insights.prototype.people = function () {
         };
     }
 
-    this.peopleStats = {
+    this.pp = {
         totalTweets: peopleData.length,
         tweets: peopleData,
         retweets: calcRetweets(),
@@ -132,7 +132,7 @@ Insights.prototype.people = function () {
         statements: calcStatements()
     };
 
-    results = this.peopleStats;
+    results = this.pp;
 
     return results;
 };
