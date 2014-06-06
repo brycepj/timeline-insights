@@ -1,38 +1,70 @@
-Insights.prototype.all = function () {
+Insights.prototype.all = function (obj) {
 
     var results;
     // in each function call, check for cached version, then if not available return prototype method call
 
     function getFauxpas() {
-        console.log('this here runs');
+    	if (this.fp) {
+        	return this.fp;
+        } else {
+        	return obj.fauxpas();
+        }
     }
 
     function getHashtags() {
-        console.log('this here runs');
+    	if (this.ht) {
+        	return this.ht;
+        } else {
+        	return obj.hashtags();
+        }
     }
 
     function getNarcissism() {
-        console.log('this here runs');
+    	if (this.nc) {
+        	return this.nc;
+        } else {
+        	return obj.narcissism();
+        }
     }
 
     function getPeople() {
-        console.log('this here runs');
+    	if (this.pp) {
+        	return this.pp;
+        } else {
+        	return obj.people();
+        }
     }
 
     function getProfanity() {
-        console.log('this here runs');
+    	if (this.pf) {
+        	return this.pf;
+        } else {
+        	return obj.profanity();
+        }
     }
 
     function getReading() {
-        console.log('this here runs');
+    	if (this.rd) {
+        	return this.rd;
+        } else {
+        	return obj.reading();
+        }
     }
 
     function getSentiments() {
-        console.log('this here runs');
+    	if (this.st) {
+        	return this.st;
+        } else {
+        	return obj.sentiments();
+        }
     }
 
     function getVocabulary() {
-        console.log('this here runs');
+    	if (this.vc) {
+        	return this.vc;
+        } else {
+        	return obj.vocabulary();
+        }
     }
 
     if (this.a) {

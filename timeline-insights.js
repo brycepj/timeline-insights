@@ -340,41 +340,73 @@ Insights.prototype.tweetsWithDates = function (simple) {
     }
 
 };
-Insights.prototype.all = function () {
+Insights.prototype.all = function (obj) {
 
     var results;
     // in each function call, check for cached version, then if not available return prototype method call
 
     function getFauxpas() {
-        console.log('this here runs');
+    	if (this.fp) {
+        	return this.fp;
+        } else {
+        	return obj.fauxpas();
+        }
     }
 
     function getHashtags() {
-        console.log('this here runs');
+    	if (this.ht) {
+        	return this.ht;
+        } else {
+        	return obj.hashtags();
+        }
     }
 
     function getNarcissism() {
-        console.log('this here runs');
+    	if (this.nc) {
+        	return this.nc;
+        } else {
+        	return obj.narcissism();
+        }
     }
 
     function getPeople() {
-        console.log('this here runs');
+    	if (this.pp) {
+        	return this.pp;
+        } else {
+        	return obj.people();
+        }
     }
 
     function getProfanity() {
-        console.log('this here runs');
+    	if (this.pf) {
+        	return this.pf;
+        } else {
+        	return obj.profanity();
+        }
     }
 
     function getReading() {
-        console.log('this here runs');
+    	if (this.rd) {
+        	return this.rd;
+        } else {
+        	return obj.reading();
+        }
     }
 
     function getSentiments() {
-        console.log('this here runs');
+    	if (this.st) {
+        	return this.st;
+        } else {
+        	return obj.sentiments();
+        }
     }
 
     function getVocabulary() {
-        console.log('this here runs');
+    	if (this.vc) {
+        	return this.vc;
+        } else {
+        	return obj.vocabulary();
+        }
     }
 
     if (this.a) {
@@ -508,13 +540,8 @@ Insights.prototype.fauxpas = function() {
 	}
 
 	this.fp = {
-		rant : function() {
-			return rant();
-		},
-		plsRT : function() {
-			return plsRT();
-		}
-
+		rant : rant(),
+		plsRT : plsRT()
 	};
 
 	results = this.fp;
@@ -529,8 +556,8 @@ Insights.prototype.hashtags = function() {
         totals,
         results;
 
-	if (this.hashtagStats) {
-		return this.hashtagStats;
+	if (this.ht) {
+		return this.ht;
 	}
 
 	(function() {
@@ -606,14 +633,14 @@ Insights.prototype.hashtags = function() {
 		};
 	}
 
-	this.hashtagStats = {
+	this.ht = {
 		totals : totals,
 		usage : countUsage(),
 		favorites : countFavorites(),
 		sins : countSins()
 	};
 
-	results = this.hashtagStats;
+	results = this.ht;
 
 	return results;
 };
@@ -632,8 +659,8 @@ Insights.prototype.narcissism = function() {
         narcPercent,
         counts;
 
-	if (this.narc) {
-		return this.narc;
+	if (this.nc) {
+		return this.nc;
 	}
 
 	for (var i = 0, max = data.length; i < max; i++) {
@@ -666,14 +693,14 @@ Insights.prototype.narcissism = function() {
 		return word;
 	});
 
-	this.narc = {
+	this.nc = {
 		narcTweetCount : narcTweetCount,
 		counts : counts,
 		narcTweetsPercent : Number(((narcTweetCount / data.length) * 100).toFixed(2)),
 		narcTweets : narcTweets
 	};
 
-	results = this.narc;
+	results = this.nc;
 
 	return results;
 
@@ -683,8 +710,8 @@ Insights.prototype.people = function () {
     var data = this.d, results, totals,
         peopleData = [];
 
-    if (this.peopleStats) {
-        return this.peopleStats;
+    if (this.pp) {
+        return this.pp;
     }
 
     (function () {
@@ -804,7 +831,7 @@ Insights.prototype.people = function () {
         };
     }
 
-    this.peopleStats = {
+    this.pp = {
         totalTweets: peopleData.length,
         tweets: peopleData,
         retweets: calcRetweets(),
@@ -812,7 +839,7 @@ Insights.prototype.people = function () {
         statements: calcStatements()
     };
 
-    results = this.peopleStats;
+    results = this.pp;
 
     return results;
 };
@@ -820,8 +847,8 @@ Insights.prototype.profanity = function() {
 
 	var results;
 
-	if (this.profanityTotals) {
-		return this.profanityTotals;
+	if (this.pf) {
+		return this.pf;
 	}
 	// array of all words used
 	var data = _.flatten(this.textForTotals().wordLevel), lib = this
@@ -859,13 +886,13 @@ Insights.prototype.profanity = function() {
 
 	}
 
-	this.profanityTotals = {
+	this.pf = {
 		count : getCounts(),
 		frequency : (wordCount / uses.length).toFixed(0),
 		percent : ((uses.length / wordCount) * 100).toFixed(8)
 	};
 
-	results = this.profanityTotals;
+	results = this.pf;
 
 	return results;
 };
@@ -877,8 +904,8 @@ Insights.prototype.reading = function() {
         readingPerTweet = [],
         totals;
 	
-	if (this.readingTotals) {
-		return this.readingTotals;
+	if (this.rd) {
+		return this.rd;
 	}
 
 	// store reading data for each tweet
@@ -984,27 +1011,27 @@ Insights.prototype.reading = function() {
 	
 	getTotals();
 	
-	this.readingTotals = {
+	this.rd = {
 		fog : getFog(),
 		flesch : getFlesch(),
 		totals:totals,
 		tweets : readingPerTweet
 	};
 
-	results = this.readingTotals;
+	results = this.rd;
 
 	return results;
 
 };
 Insights.prototype.sentiments = function() {
-	
-	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this
-			.sentimentLib(),results,negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
 
-	if (this.sentimentTotals) {
-		return this.sentimentTotals;
+	var data = this.textForTotals(), fullText = data.fullText, tweets = data.wordLevel, lib = this
+			.sentimentLib(), results, negativeWords = [], positiveWords = [], balance = 0, negativeTweets = [], positiveTweets = [], neutralTweetCount = 0, totalWords = 0;
+
+	if (this.st) {
+		return this.st;
 	}
-	
+
 	for (var i = 0, max = tweets.length; i < max; i++) {
 		var tweet = tweets[i], currentBalance = 0, currentPositive = [], currentNegative = [];
 
@@ -1013,8 +1040,7 @@ Insights.prototype.sentiments = function() {
 			totalWords++;
 
 			for ( var key in lib) {
-				var sent = key,
-                    score = lib[key];
+				var sent = key, score = lib[key];
 
 				if (word === sent) {
 					if (score > 0) {
@@ -1067,58 +1093,68 @@ Insights.prototype.sentiments = function() {
 		return tweet.balance;
 	}).reverse();
 
-	results = {
-			negativeWords : negativeWords,
-			positiveWords : positiveWords,
-			negPosWords : negativeWords.concat(positiveWords),
-			balance : balance,
-			negativeTweets : negativeTweets,
-			positiveTweets : positiveTweets,
-			neutralTweetCount : neutralTweetCount,
-			totalWords : totalWords
-		};
-	
-	this.sentimentTotals  = results;
-	
+	this.st = {
+		negativeWords : negativeWords,
+		positiveWords : positiveWords,
+		negPosWords : negativeWords.concat(positiveWords),
+		balance : balance,
+		negativeTweets : negativeTweets,
+		positiveTweets : positiveTweets,
+		neutralTweetCount : neutralTweetCount,
+		totalWords : totalWords
+	};
+
+	results = this.st;
+
 	return results;
 
 };
 
-Insights.prototype.vocabulary = function(){
-	
-	var data = this.textForTotals().sentenceLevel, equiv,
-	allWords = _.flatten(data);
-	uniqueWords = _.chain(allWords).compact()
-	.map(function(word){
-		var punctuationless = word.replace(
-				/[\,.!-@\/$%\^&\*;:{}=\-_`~()]/g, "");
-		return punctuationless.replace(/\s{2,}/g, "");
-	})
-	.uniq();
-	
-	uniqueWords = uniqueWords.value();
-	
-	(function(){
-		
-		var TOTAL = 35000,
-            multiple = (TOTAL/allWords.length);
-		
-		equiv = uniqueWords.length * multiple;
-		
-	})();
-	
-	return {
-		uniqueWords:uniqueWords,
-		totalWords:allWords.length,
-		uniquePer35k: {
-			self:Number(equiv.toFixed(0)),
-			melville: 6022,
-			shakespeare:5170,
-			DMX:3214,
-			aesopRock:7392,
-			reference:"http://rappers.mdaniels.com"	
-		}
-	};
+Insights.prototype.vocabulary = function() {
+
+	var results;
+
+	if (this.vc) {
+		return this.vc;
+	} else {
+
+		var data = this.textForTotals().sentenceLevel, equiv;
+
+		var allWords = _.flatten(data), uniqueWords = _.chain(allWords)
+				.compact().map(
+						function(word) {
+							var punctuationless = word.replace(
+									/[\,.!-@\/$%\^&\*;:{}=\-_`~()]/g, "");
+							return punctuationless.replace(/\s{2,}/g, "");
+						}).uniq();
+
+		uniqueWords = uniqueWords.value();
+
+		(function() {
+
+			var TOTAL = 35000, multiple = (TOTAL / allWords.length);
+
+			equiv = uniqueWords.length * multiple;
+
+		})();
+
+		this.vc = {
+			uniqueWords : uniqueWords,
+			totalWords : allWords.length,
+			uniquePer35k : {
+				self : Number(equiv.toFixed(0)),
+				melville : 6022,
+				shakespeare : 5170,
+				DMX : 3214,
+				aesopRock : 7392,
+				reference : "http://rappers.mdaniels.com"
+			}
+		};
+
+		results = this.vc;
+
+		return results;
+	}
 };
 Insights.prototype.sentimentLib = function(){
 	

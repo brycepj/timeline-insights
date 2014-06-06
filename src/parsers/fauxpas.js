@@ -108,13 +108,8 @@ Insights.prototype.fauxpas = function() {
 	}
 
 	this.fp = {
-		rant : function() {
-			return rant();
-		},
-		plsRT : function() {
-			return plsRT();
-		}
-
+		rant : rant(),
+		plsRT : plsRT()
 	};
 
 	results = this.fp;
