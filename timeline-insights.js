@@ -775,7 +775,7 @@ Insights.prototype.people = function () {
 
         return {
             count:retweets.length,
-            percent:((retweets.length/peopleData.length)*100).toFixed(2),
+            percent:Number(((retweets.length/peopleData.length)*100).toFixed(2)),
             favorites:favorites
         };
     }
@@ -804,7 +804,7 @@ Insights.prototype.people = function () {
 
         return {
             count:replies.length,
-            percent:((replies.length/peopleData.length)*100).toFixed(2),
+            percent:Number(((replies.length/peopleData.length)*100).toFixed(2)),
             favorites:favorites
         };
     }
@@ -825,7 +825,7 @@ Insights.prototype.people = function () {
 
         return {
             count:statements.length,
-            percent:((statements.length/peopleData.length)*100).toFixed(2),
+            percent:Number(((statements.length/peopleData.length)*100).toFixed(2)),
             favorites:favorites
         };
     }

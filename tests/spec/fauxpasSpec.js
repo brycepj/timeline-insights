@@ -1,4 +1,4 @@
-describe('fauxpas insights', function() {
+describe('FAUXPAS', function() {
 
 	var insights;
 

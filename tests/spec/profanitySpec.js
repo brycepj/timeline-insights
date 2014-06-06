@@ -1,4 +1,4 @@
-describe('profanity insights',function(){
+describe('PROFANITY',function(){
 	
 	var insights,profanity;
 
