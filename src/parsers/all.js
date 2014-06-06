@@ -1,8 +1,6 @@
 Insights.prototype.all = function(obj) {
 
 	var results;
-	// in each function call, check for cached version, then if not available
-	// return prototype method call
 
 	function getFauxpas() {
 		if (this.fp) {
