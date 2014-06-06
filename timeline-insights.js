@@ -1,3 +1,6 @@
+(function(){
+
+
 var Insights = (function (_) {
 
     function Insights(data, settings) {
@@ -1072,3 +1075,6 @@ Insights.prototype.profanityLib = function(){
 
 	return profanity;
 };
+
+
+})();
