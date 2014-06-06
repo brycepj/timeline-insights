@@ -1,12 +1,15 @@
-### conventions
+## usage
 
-- change all var declarations to singles
-- add length declaration to for loops
+```
+var data = $.getJSON('tweetData.json').done(function(data) {
 
-- hashtags
-- reasons
-- figure out how to document the thing
-- figure out code conventions
-- write up Readme, for users. 
+    var insights = new Insights(data);
 
+)};
+
+```
+
+## datasets
+
+## insights
 
