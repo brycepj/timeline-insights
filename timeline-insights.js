@@ -398,127 +398,128 @@ Insights.prototype.all = function () {
     }
 
 };
-Insights.prototype.fauxpas = function () {
+Insights.prototype.fauxpas = function() {
 
-    var data = this.tweetsWithDates(),
-        text = this.textForTotals();
+	var data = this.tweetsWithDates(), text = this.textForTotals(), results;
 
-    function rant() {
+	if (this.fp) {
+		return this.fp;
+	}
 
-        var scrubbed = [], counted, sorted;
-        var prevD = null, prevH = null, prevM = null, prevS = null, prevCount = 0;
+	function rant() {
 
-        for (var i = 0, max = data.length; i < max; i++) {
+		var scrubbed = [], counted, sorted;
+		var prevD = null, prevH = null, prevM = null, prevS = null, prevCount = 0;
 
-            var tweet = data[i];
+		for (var i = 0, max = data.length; i < max; i++) {
 
-            if (!tweet.in_reply_to_screen_name) {
-                var currentDay = tweet.dateStr,
-                    currentHour = tweet.moment._a[3],
-                    currentMin = tweet.moment._a[4],
-                    currentSec = tweet.moment._a[5];
+			var tweet = data[i];
 
-                if (i === 0) {
-                    prevD = currentDay;
-                    prevH = currentHour;
-                    prevM = currentMin;
-                    prevS = currentSec;
+			if (!tweet.in_reply_to_screen_name) {
+				var currentDay = tweet.dateStr, currentHour = tweet.moment._a[3], currentMin = tweet.moment._a[4], currentSec = tweet.moment._a[5];
 
-                } else {
+				if (i === 0) {
+					prevD = currentDay;
+					prevH = currentHour;
+					prevM = currentMin;
+					prevS = currentSec;
 
-                    if (currentDay === prevD
-                        && currentHour === prevH
-                        && (currentMin === prevM || currentMin === prevM + 1)) {
-                        prevCount += 1;
+				} else {
 
-                        scrubbed.push({
-                            day: prevD,
-                            hour: prevH,
-                            min: prevM,
-                            sec: prevS,
-                            count: prevCount
-                        });
+					if (currentDay === prevD
+							&& currentHour === prevH
+							&& (currentMin === prevM || currentMin === prevM + 1)) {
+						prevCount += 1;
 
-                    } else {
+						scrubbed.push({
+							day : prevD,
+							hour : prevH,
+							min : prevM,
+							sec : prevS,
+							count : prevCount
+						});
 
-                        prevD = currentDay;
-                        prevH = currentHour;
-                        prevM = currentMin;
-                        prevS = currentSec;
+					} else {
 
-                        prevCount = 0;
-                    }
-                }
-            }
+						prevD = currentDay;
+						prevH = currentHour;
+						prevM = currentMin;
+						prevS = currentSec;
 
-        }
+						prevCount = 0;
+					}
+				}
+			}
 
-        counted = _.filter(scrubbed, function (dup) {
-            return dup.count > 1;
-        });
+		}
 
-        uniq = _.forEach(counted, function (tweet) {
-            var str = tweet.day + tweet.hour + tweet.min;
-            tweet.str = str;
-        });
+		counted = _.filter(scrubbed, function(dup) {
+			return dup.count > 1;
+		});
 
-        sorted = _.countBy(uniq, function (tweet) {
-            return tweet.str;
-        });
+		uniq = _.forEach(counted, function(tweet) {
+			var str = tweet.day + tweet.hour + tweet.min;
+			tweet.str = str;
+		});
 
-        return {
-            count: sorted.length,
-            times: sorted
-        };
-    }
+		sorted = _.countBy(uniq, function(tweet) {
+			return tweet.str;
+		});
 
-    function plsRT() {
+		return {
+			count : Object.keys(sorted).length,
+			times : sorted
+		};
+	}
 
-        var words = text.wordLevel,
-            fullText = text.fullText,
-            please = false,
-            pleaseRTs = 0,
-            offenses = [];
+	function plsRT() {
 
-        for (var i = 0, max = words.length; i < max; i++) {
-            var tweet = words[i];
+		var words = text.wordLevel, fullText = text.fullText, please = false, pleaseRTs = 0, offenses = [];
 
-            for (var j = 0; j < tweet.length; j++) {
-                var word = tweet[j];
-                word = word.toLowerCase();
+		for (var i = 0, max = words.length; i < max; i++) {
+			var tweet = words[i];
 
-                if (please) {
-                    if (word === "rt" || word === "retweet") {
-                        pleaseRTs++;
-                        offenses.push(fullText[i]);
-                    }
+			for (var j = 0; j < tweet.length; j++) {
+				var word = tweet[j];
+				word = word.toLowerCase();
 
-                    please = false;
-                }
+				if (please) {
+					if (word === "rt" || word === "retweet") {
+						pleaseRTs++;
+						offenses.push(fullText[i]);
+					}
 
-                if (word === "please" || word === "plz" || word === "pls") {
-                    please = true;
+					please = false;
+				}
 
-                }
+				if (word === "please" || word === "plz" || word === "pls") {
+					please = true;
 
-            }
+				}
 
-        }
+			}
 
-        return {
-            count: offenses.length,
-            text: offenses
-        };
-    }
+		}
 
-    return {
-        rant: function () {
-            return rant();
-        },
-        plsRT: function () {
-            return plsRT();
-        }
-    };
+		return {
+			count : offenses.length,
+			text : offenses
+		};
+	}
+
+	this.fp = {
+		rant : function() {
+			return rant();
+		},
+		plsRT : function() {
+			return plsRT();
+		}
+
+	};
+
+	results = this.fp;
+
+	return results;
 };
 Insights.prototype.hashtags = function() {
 

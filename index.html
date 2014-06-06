@@ -30,7 +30,7 @@
 
 			
 			
-			var data = $.getJSON('data/bryce.json').done(function(data) {
+			var data = $.getJSON('data/brooks.json').done(function(data) {
 
 				console.log('insights object',insights);
 			
@@ -38,11 +38,14 @@
 
                 var time = new Date();
 				
-				var use = insights.textForTotals().fullText;
+				var use = insights.fauxpas().rant();
 
-				$('body').html(JSON.stringify(use));
 				console.log(use);
-
+	
+				use = insights.fauxpas().rant();
+				
+				console.log(use);
+				
 				console.log('items:',data.length,'time:', (new Date() - time)/1000);
 				
 				
