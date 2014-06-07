@@ -37,7 +37,7 @@ describe("PEOPLE", function () {
         expect(repliesCount+retweetsCount+statementsCount).toEqual(people.totalTweets);
         expect(repliesPercent+retweetsPercent+statementsPercent).toBeCloseTo(100);
         expect(people.totalTweets).toEqual(people.tweets.length);
-        
+
         done();
     });
 

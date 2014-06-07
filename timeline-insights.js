@@ -947,7 +947,7 @@ Insights.prototype.reading = function() {
 			}
 
 			readingPerTweet.push({
-				avgSyllables : isNaN(currentSyllables / tweet.length)? 1:(currentSyllables / tweet.length).toFixed(2),
+				avgSyllables : isNaN(currentSyllables / tweet.length)? 1:Number((currentSyllables / tweet.length).toFixed(2)),
 				bigWords : bigWords,
 				text : fullText[i],
 				sentenceCount : sentences.length,
@@ -979,10 +979,10 @@ Insights.prototype.reading = function() {
 		}
 		
 		totals = {
-				wordsPerSentence:(totalWords/totalSentences).toFixed(2),
-				syllablesPerWord:(totalSyllables/data.length).toFixed(2),
-				percentLongWords:((bigWords.length/totalWords) * 100).toFixed(2),
-				longWordsPerSentence:(bigWords.length/totalSentences).toFixed(2)
+				wordsPerSentence:Number((totalWords/totalSentences).toFixed(2)),
+				syllablesPerWord:Number((totalSyllables/data.length).toFixed(2)),
+				percentLongWords:Number(((bigWords.length/totalWords) * 100).toFixed(2)),
+				longWordsPerSentence:Number((bigWords.length/totalSentences).toFixed(2))
 			};
 		
 		return totals;
@@ -995,8 +995,8 @@ Insights.prototype.reading = function() {
 		
 		
 		return {
-			grade : ((0.39 * Number(WPS)) + (11.8 * Number(SPW)) - 15.59).toFixed(2),
-			ease : (206.835 - (1.015 * Number(WPS)) - (84.6 * Number(SPW))).toFixed(2),
+			grade : Number(((0.39 * Number(WPS)) + (11.8 * Number(SPW)) - 15.59).toFixed(2)),
+			ease : Number((206.835 - (1.015 * Number(WPS)) - (84.6 * Number(SPW))).toFixed(2)),
 		};
 	}
 
@@ -1005,7 +1005,7 @@ Insights.prototype.reading = function() {
             ASL = Number(data.wordsPerSentence),
             PHW = Number(data.percentLongWords);
 		
-		return (0.4*(ASL + PHW)).toFixed(2);
+		return Number((0.4*(ASL + PHW)).toFixed(2));
 	}
 	
 	getTotals();

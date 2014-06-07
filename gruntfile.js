@@ -44,7 +44,7 @@ module.exports = function (grunt) {
                     loopfunc: true,
                     laxbreak: true
                 },
-                all: [ 'Gruntfile.js', 'src/**/*.js', 'lib/**/*.js' ]
+                all: [ 'Gruntfile.js', 'src/**/*.js', 'lib/**/*.js',"tests/spec/*.js" ]
             },
             uglify: {
                 dev: {
