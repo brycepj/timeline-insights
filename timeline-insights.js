@@ -1,5 +1,12 @@
 (function(){
     "use strict";
+
+	if ( typeof define === "function" && define.amd ) {
+		define( "Insights", [], function() {
+			return Insights;
+		});
+	}
+
 var Insights = (function (_) {
 
     function Insights(data, settings) {
@@ -1168,6 +1175,7 @@ Insights.prototype.profanityLib = function(){
 	return profanity;
 };
 
-window.Insights = Insights;
+
+	window.Insights = Insights;
 
 })();
