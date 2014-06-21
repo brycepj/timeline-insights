@@ -1,5 +1,5 @@
 (function(){
-
+    "use strict";
 var Insights = (function (_) {
 
     function Insights(data, settings) {
