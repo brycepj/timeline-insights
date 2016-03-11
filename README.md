@@ -118,23 +118,13 @@ Even if you're processing the data client-side, it still makes sense to remove p
 
 Pass the data returned from the Twitter API into the Insights constructor, and use prototype methods to extract insights and datasets. 
 
-```
+```javascript
 var data = $.getJSON('twitter.api.request').done(function(data) {
 
 	var insights = new Insights(data),
-
-	    // returns insights about profanity usage in tweets
-
 	    profanity = insights.profanity(), 
-
-	    // returns insights about positive and negative sentiments expressed in user's tweets
-	    
 	    sentiments = insights.sentiments(), 
-
-	    // returns a dataset of tweets organized by year, month, and day
-	    
 	    tweetsByDay = insights.tweetCalendar(); 
-
 });
 
 ```
@@ -392,5 +382,3 @@ Returns information about the breadth of the user's vocabulary (the number of un
 **all()**
 
 Returns an object containing all the values of all Insights methods. 
-
-
